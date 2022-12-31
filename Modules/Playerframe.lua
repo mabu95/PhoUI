@@ -59,9 +59,9 @@ function Module:OnEnable()
         PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual:SetFrameLevel(5)
 
         PhoUI:HideFrame(PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerPortraitCornerIcon)
-        PhoUI:HideFrame(PlayerFrame.healthbar.HealthBarMask)
-        PhoUI:HideFrame(PlayerFrame.healthbar.OverAbsorbGlow)
-        PhoUI:HideFrame(PlayerFrame.manabar.ManaBarMask)
+        PlayerFrame.healthbar.HealthBarMask:Hide()
+        PlayerFrame.healthbar.OverAbsorbGlow:Hide()
+        PlayerFrame.manabar.ManaBarMask:Hide()
         
         PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:ClearAllPoints()
         PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:SetPoint("LEFT", PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual, 0, 0)

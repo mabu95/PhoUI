@@ -202,7 +202,6 @@ function Custom:OnEnable()
                 end
             end
             
-            
             if db.style == "full" then
                 -- Right Bar
                 for i = 1, 6 do

@@ -40,7 +40,11 @@ function PhoUI:OnInitialize()
                 gryphons = true,
                 style = "full",
                 menu_enable = true,
-                menu_hide = false
+                menu_hide = false,
+                short_keybinds = true,
+                text_size = 10,
+                hotkey = true,
+                macro = true
             }
         }
     }

@@ -26,16 +26,16 @@ function Actionbar:OnEnable()
                 local PlacerholderButtonLeft    = _G[p .. "PlaceholderButtonLeft" .. i]
                 local PlacerholderButtonRight   = _G[p .. "PlaceholderButtonRight" .. i]
     
-                MainMenuBarButton:SetSize(41, 41)
                 MainMenuBarButton:ClearAllPoints()
                 MainMenuBarButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 0)
     
-                MultiBarBottomLeftButton:SetSize(41, 41)
+                MainMenuBarButton.RightDivider:Hide()
+                MainMenuBarButton.RightDivider:Hide()
+
                 MultiBarBottomLeftButton:ClearAllPoints()
-                MultiBarBottomLeftButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 50)
+                MultiBarBottomLeftButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 43)
     
                 if db.style == "full" then
-                    MultiBarBottomRightButton:SetSize(41, 41)
                     if i <= 6 then
                         MultiBarBottomRightButton:ClearAllPoints()
                         MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 0)
@@ -43,9 +43,23 @@ function Actionbar:OnEnable()
                         local i = i - 6
                         PlacerholderButtonRight = _G[p .. "PlaceholderButtonRight" .. i]
                         MultiBarBottomRightButton:ClearAllPoints()
-                        MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 50)
+                        MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 45)
                     end
                 end
+            end
+
+            -- Right Bars
+            for i = 1, 12 do
+                local ButtonLeft = _G["MultiBarLeftButton" .. i]
+                local ButtonRight = _G["MultiBarRightButton" .. i]
+
+                local POS_X = (i - 1) * 39 + 8
+
+                ButtonLeft:ClearAllPoints()
+                ButtonLeft:SetPoint("TOPLEFT", MultiBarLeft, "TOPLEFT", 0, -POS_X)
+
+                ButtonRight:ClearAllPoints()
+                ButtonRight:SetPoint("TOPLEFT", MultiBarRight, "TOPLEFT", 0, -POS_X)
             end
 
             StanceBar:ClearAllPoints()
@@ -56,13 +70,17 @@ function Actionbar:OnEnable()
         end
 
         local function UpdateButton(Button, SetSize)
-            local Width, Height = 0, 0
+            
+            local Width, Height = Button:GetSize()
 
             if db.enable and SetSize then
-                Button:SetSize(41, 41)
+                Width, Height = _G[p .. "PlaceholderButtonLeft1"]:GetSize()
+                Width = Width - 2
+                Height = Height - 2
+                Button:SetScale(1)
+                Button:SetSize(Width, Height)
             end
-    
-            Width, Height = Button:GetSize()
+
 
             Button:GetNormalTexture():SetSize(Width, Height)
             Button:SetNormalTexture(PhoUI.TEXTURE_PATH .. "Button")
@@ -81,7 +99,7 @@ function Actionbar:OnEnable()
             end
 
             _G[Button:GetName() .. "Cooldown"]:ClearAllPoints()
-            _G[Button:GetName() .. "Cooldown"]:SetPoint("TOPLEFT", Button, "TOPLEFT", 0, 0)
+            _G[Button:GetName() .. "Cooldown"]:SetPoint("TOPLEFT", Button, "TOPLEFT", -1, -1)
             _G[Button:GetName() .. "Cooldown"]:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
 
             Button.CheckedTexture:SetAllPoints()
@@ -123,22 +141,75 @@ function Actionbar:OnEnable()
         end
     end
 
+    local function ShortKeybinds(Text)
+        Text = gsub(Text, "(s%-)", "S")
+        Text = gsub(Text, "(a%-)", "A")
+        Text = gsub(Text, "(c%-)", "C")
+        Text = gsub(Text, "(st%-)", "C")
+
+        for i = 0, 9 do
+            if Text == _G["KEY_NUMPAD"..i] then
+                Text = gsub(Text, _G["KEY_NUMPAD"..i], "Nu"..i)
+            end
+        end
+
+        local Keys = {
+            -- Numpad Buttons
+            ["Nu."] = KEY_NUMPADDECIMAL,
+            ["Nu/"] = KEY_NUMPADDIVIDE,
+            ["Nu-"] = KEY_NUMPADMINUS,
+            ["Nu*"] = KEY_NUMPADMULTIPLY,
+            ["Nu+"] = KEY_NUMPADPLUS,
+
+            -- Mouse Buttons
+            ["WU"] = KEY_MOUSEWHEELUP,
+            ["WD"] = KEY_MOUSEWHEELDOWN,
+            ["ML"] = KEY_BUTTON1,
+            ["MR"] = KEY_BUTTON2,
+            ["MM"] = KEY_BUTTON3,
+            ["M4"] = KEY_BUTTON4,
+            ["M5"] = KEY_BUTTON5,
+
+            -- Extra Buttons
+            ["NuL"] = KEY_NUMLOCK,
+            ["PU"] = KEY_PAGEUP,
+            ["PD"] = KEY_PAGEDOWN,
+            ["_"] = KEY_SPACE,
+            ["Ins"] = KEY_INSERT,
+            ["Hm"] = KEY_HOME,
+            ["Del"] = KEY_DELETE,
+            ["Caps"] = Capslock,
+        }
+
+        for i, v in pairs(Keys) do
+            if Text == v then
+                Text = gsub(Text, v, i)
+            end
+        end
+
+        return Text
+    end
+
     function UpdateKeybind(Button)
         local HotKey = _G[Button:GetName() .. "HotKey"]
+        local Macro = _G[Button:GetName() .. "Name"]
+        local Count = _G[Button:GetName() .. "Count"]
+        local Text = HotKey:GetText()
+
+        if Text == nil then return end
+
         if db.short_keybinds then
-            local Text = HotKey:GetText()
-            
-            for i = 0, 9 do
-
-                --print(KEY_NUMLOCK)
-                if Text == _G["KEY_NUMPAD"..i] then
-                    Text = gsub(Text, _G["KEY_NUMPAD"..i], "Nu"..i)
-                end
-                --
-            end
-
-            HotKey:SetText(Text)
+            Text = ShortKeybinds(Text)
         end
+
+        HotKey:SetFont(PhoUI.DEFAULT_FONT, db.text_size, "OUTLINE")
+        Macro:SetFont(PhoUI.DEFAULT_FONT, db.text_size, "OUTLINE")
+        Count:SetFont(PhoUI.DEFAULT_FONT, db.text_size, "OUTLINE")
+
+        HotKey:SetAlpha(db.hotkey and 1 or 0)
+        Macro:SetAlpha(db.macro and 1 or 0)
+
+        HotKey:SetText(Text)
     end
 
     self.EventFrame = CreateFrame("Frame")

@@ -151,6 +151,8 @@ function Module:OnEnable()
           self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0)
           self:SetBackdropColor(0, 0, 0, .1)
 
-        self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
+        if PhoUI.DARK_MODE then
+            self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
+        end
     end)
 end
