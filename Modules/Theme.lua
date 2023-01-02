@@ -12,15 +12,15 @@ function Module:OnEnable()
     if Theme == "blizzard" then return end
 
     local function SetDarkMode(Frame)
-        Frame:SetVertexColor(0, 0, 0)
+        Frame:SetVertexColor(0.3, 0.3, 0.3)
     end
 
     local function StyleChilds(Frame, ColorTexture)
         local Childs = { Frame:GetRegions() }
         for _, c in ipairs(Childs) do
-            c:SetVertexColor(0.2, 0.2, 0.2)
+            c:SetVertexColor(0.3, 0.3, 0.3)
             if ColorTexture then
-                c:SetColorTexture(0.2, 0.2, 0.2)
+                c:SetColorTexture(0.3, 0.3, 0.3)
             end
         end
     end
@@ -46,6 +46,12 @@ function Module:OnEnable()
             ActiveTabList[i]:SetVertexColor(0.2, 0.2, 0.2, 1)
         end
     end
+
+    local function CloseButton(Button)
+        Button:GetNormalTexture():SetVertexColor(0.6, 0.6, 0.6)
+    end
+
+    CloseButton(CharacterFrameCloseButton)
 
     -- Bags
     StyleChilds(ContainerFrame1MoneyFrame.Border)
@@ -107,4 +113,37 @@ function Module:OnEnable()
     StyleTab(CharacterFrameTab2)
     StyleTab(CharacterFrameTab3)
 
+
+    -- Calendar Stuff
+    self.EventFrame = CreateFrame("Frame")
+    self.EventFrame:RegisterEvent("ADDON_LOADED")
+    self.EventFrame:SetScript("OnEvent", function(s, e, v)
+        if v == "Blizzard_Calendar" then
+            CloseButton(CalendarCloseButton)
+            CloseButton(CalendarCreateEventCloseButton)
+            for _, v in pairs({
+                CalendarFrameTopMiddleTexture,
+                CalendarFrameRightTopTexture,
+                CalendarFrameRightMiddleTexture,
+                CalendarFrameRightBottomTexture,
+                CalendarFrameBottomRightTexture,
+                CalendarFrameBottomMiddleTexture,
+                CalendarFrameBottomLeftTexture,
+                CalendarFrameLeftMiddleTexture,
+                CalendarFrameLeftTopTexture,
+                CalendarFrameLeftBottomTexture,
+                CalendarFrameTopLeftTexture,
+                CalendarFrameTopRightTexture,
+                CalendarCreateEventFrame.Header.CenterBG,
+                CalendarCreateEventFrame.Header.LeftBG,
+                CalendarCreateEventFrame.Header.RightBG,
+                CalendarCreateEventFrameButtonBackground,
+                CalendarCreateEventFrameCreateButtonBorder,
+                CalendarCreateEventFrameMassInviteButton
+            }) do
+                SetDarkMode(v)
+            end
+            StyleChilds(CalendarCreateEventFrame.Border)
+        end
+    end)
 end

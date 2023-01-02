@@ -90,7 +90,7 @@ function Module:OnEnable()
         end
 
         Frame.TargetFrameContent.TargetFrameContentContextual.PrestigePortrait:ClearAllPoints()
-        Frame.TargetFrameContent.TargetFrameContentContextual.PrestigePortrait:SetPoint("LEFT", PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual, 0, 0)
+        Frame.TargetFrameContent.TargetFrameContentContextual.PrestigePortrait:SetPoint("RIGHT", Frame.TargetFrameContent.TargetFrameContentContextual, 0, 0)
         Frame.TargetFrameContent.TargetFrameContentContextual.PrestigePortrait:SetScale(0.8)
         
         if not db.pvpicon then
@@ -116,6 +116,11 @@ function Module:OnEnable()
         LevelText:ClearAllPoints();
         LevelText:SetParent(TargetLevelFrame)
         LevelText:SetPoint("CENTER", TargetLevelFrame, 0, 0)
+
+        local HighLevelTexture = Frame.TargetFrameContent.TargetFrameContentContextual.HighLevelTexture
+        HighLevelTexture:SetParent(TargetLevelFrame)
+        HighLevelTexture:ClearAllPoints()
+        HighLevelTexture:SetPoint("CENTER", 0, 0)
     end
 
     local function FocusFrame_CheckLevel(Frame)
@@ -123,6 +128,11 @@ function Module:OnEnable()
         LevelText:ClearAllPoints();
         LevelText:SetParent(FocusLevelFrame)
         LevelText:SetPoint("CENTER", FocusLevelFrame, 0, 0)
+
+        local HighLevelTexture = Frame.TargetFrameContent.TargetFrameContentContextual.HighLevelTexture
+        HighLevelTexture:SetParent(FocusLevelFrame)
+        HighLevelTexture:ClearAllPoints()
+        HighLevelTexture:SetPoint("CENTER", 0, 0)
     end
 
     local function TargetFrameToT_Update()
@@ -230,6 +240,22 @@ function Module:OnEnable()
     hooksecurefunc(TargetFrame, "CheckClassification", CheckClassification)
     hooksecurefunc(TargetFrame, "CheckLevel", TargetFrame_CheckLevel)
     hooksecurefunc(TargetFrameToT, "Update", TargetFrameToT_Update)
+
+    hooksecurefunc("TargetFrame_UpdateBuffAnchor", function(_, Buff)
+        Buff:SetSize(db.buffsize, db.buffsize)
+    end)
+
+    hooksecurefunc("TargetFrame_UpdateDebuffAnchor", function(_, Debuff)
+        Debuff:SetSize(db.debuffsize, db.debuffsize)
+        if Debuff.Border ~= nil then
+            Debuff.Border:SetPoint("TOPLEFT", -1, 0)
+            Debuff.Border:SetPoint("BOTTOMRIGHT", 0, 0)
+        end
+        if Debuff.Cooldown then
+            --Debuff.Cooldown:SetPoint("TOPLEFT", -1, -1)
+            --Debuff.Cooldown:SetPoint("BOTTOMRIGHT", -1, 0)
+        end
+    end)
 
     hooksecurefunc(FocusFrame, "Update", UpdateFrame)
     hooksecurefunc(FocusFrame, "CheckClassification", CheckClassification)

@@ -7,6 +7,9 @@ local p, h, o, u, i = ...
 local Module = PhoUI:NewModule("Menu")
 
 function Module:OnEnable()
+
+    local db = PhoUI.db.profile.actionbar
+
     local BagButtons = {
         CharacterBag0Slot,
         CharacterBag1Slot,
@@ -248,5 +251,10 @@ function Module:OnEnable()
                 Button.Border:SetVertexColor(0.2, 0.2, 0.2)
             end
         end
+    end
+    
+    if db.menu_hide then
+        MicroButtonAndBagsBar:Hide()
+        MicroButtonAndBagsBar:SetAlpha(0)
     end
 end

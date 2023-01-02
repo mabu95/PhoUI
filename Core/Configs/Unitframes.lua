@@ -26,7 +26,6 @@ function Module:OnEnable()
                 values = {
                     ["small"] = "Small",
                     ["big"] = "Big",
-                    ["blizzard"] = "Blizzard"
                 }
             },
             chain = {
@@ -89,7 +88,7 @@ function Module:OnEnable()
                 order = 9,
                 width = 1.25
             },
-            buffs = {
+            buffsize = {
                 name = "Buff Icon Size",
                 desc = "Set the Buff Icon Size",
                 type = "range",
@@ -98,7 +97,7 @@ function Module:OnEnable()
                 order = 10,
                 width = 1.25
             },
-            debuffs = {
+            debuffsize = {
                 name = "Debuff Icon Size",
                 desc = "Set the Debuff Icon Size",
                 type = "range",

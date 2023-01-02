@@ -7,7 +7,6 @@ local p, h, o, u, i = ...
 local Custom = PhoUI:NewModule("CustomActionbar")
 
 function Custom:OnEnable()
-
     local db = PhoUI.db.profile.actionbar
     local Height = 50
     local PagerPos = 0
@@ -43,10 +42,10 @@ function Custom:OnEnable()
 
         if PhoUI.DARK_MODE then
             GryphonLeft.Background:SetDesaturated(1)
-            GryphonLeft.Background:SetVertexColor(0.2, 0.2, 0.2)
+            GryphonLeft.Background:SetVertexColor(0.4, 0.4, 0.4)
 
             GryphonRight.Background:SetDesaturated(1)
-            GryphonRight.Background:SetVertexColor(0.2, 0.2, 0.2)
+            GryphonRight.Background:SetVertexColor(0.4, 0.4, 0.4)
         end
     end
     
@@ -321,4 +320,19 @@ function Custom:OnEnable()
     end
 
     CreateBorderArt()
+
+
+    self.EventFrame = CreateFrame("Frame")
+    self.EventFrame:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR")
+    self.EventFrame:RegisterEvent("PET_BATTLE_CLOSE")
+    self.EventFrame:RegisterEvent("PET_BATTLE_OPENING_START")
+
+    self.EventFrame:SetScript("OnEvent", function(s, e, ...) 
+        if C_PetBattles.IsInBattle() or HasVehicleActionBar() then
+            _G[p .. "Actionbar"]:Hide()
+        else
+            _G[p .. "Actionbar"]:Show()
+        end
+    end)
+
 end

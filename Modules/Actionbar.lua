@@ -70,7 +70,11 @@ function Actionbar:OnEnable()
         end
 
         local function UpdateButton(Button, SetSize)
-            
+            local Icon = _G[Button:GetName() .. "Icon"]
+            --local Mask = _G[Button:GetName()].IconMask
+            --Mask:Hide()
+            --Icon:SetTexCoord(.08, .92, .08, .92)
+
             local Width, Height = Button:GetSize()
 
             if db.enable and SetSize then
@@ -81,9 +85,14 @@ function Actionbar:OnEnable()
                 Button:SetSize(Width, Height)
             end
 
-
+            PhoUI:SetButtonAtlas(Button, "NormalTexture", "Button_Border")
             Button:GetNormalTexture():SetSize(Width, Height)
-            Button:SetNormalTexture(PhoUI.TEXTURE_PATH .. "Button")
+            --Button:GetNormalTexture():SetSize(Width, Height)
+            --Button:SetNormalTexture()
+            --Button:SetNormalTexture(PhoUI.TEXTURE_PATH .. "Button")
+            --Button:SetNormalAtlas("UI-HUD-ActionBar-IconFrame", true)
+
+
             Button:SetHighlightTexture(PhoUI.TEXTURE_PATH .. "Button_Highlight")
             Button:SetPushedTexture(PhoUI.TEXTURE_PATH .. "Button_Pushed")
             Button.CheckedTexture:SetTexture(PhoUI.TEXTURE_PATH .. "Button_Highlight")
@@ -106,20 +115,22 @@ function Actionbar:OnEnable()
             Button:GetPushedTexture():SetAllPoints()
             Button.HighlightTexture:SetAllPoints()
 
+            
             if Button and Button.Backdrop == nil then
                 Button.Backdrop = CreateFrame("Frame", Button:GetName() .. "Backdrop", Button, "BackdropTemplate")
                 Button.Backdrop:SetFrameLevel(Button:GetFrameLevel() - 1)
                 Button.Backdrop:SetBackdrop({
                     bgFile = "",
                     edgeFile = PhoUI.TEXTURE_PATH .. "Backdrop",
-                    tile = false, tileSize = 32,
-                    edgeSize = 6,
-                    insets = { left = 3, right = 3, top = 3, bottom = 3 }
+                    tile = false, tileSize = 0,
+                    edgeSize = 5,
+                    insets = { left = 5, right = 5, top = 5, bottom = 5 }
                 })
                 Button.Backdrop:SetPoint("TOPLEFT", Button, "TOPLEFT", -2, 2)
                 Button.Backdrop:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 2, -2)
-                Button.Backdrop:SetBackdropBorderColor(0, 0, 0, .6)
+                Button.Backdrop:SetBackdropBorderColor(0, 0, 0, .4)
             end
+            
 
             UpdateKeybind(Button)
         end
@@ -142,11 +153,6 @@ function Actionbar:OnEnable()
     end
 
     local function ShortKeybinds(Text)
-        Text = gsub(Text, "(s%-)", "S")
-        Text = gsub(Text, "(a%-)", "A")
-        Text = gsub(Text, "(c%-)", "C")
-        Text = gsub(Text, "(st%-)", "C")
-
         for i = 0, 9 do
             if Text == _G["KEY_NUMPAD"..i] then
                 Text = gsub(Text, _G["KEY_NUMPAD"..i], "Nu"..i)
@@ -166,7 +172,7 @@ function Actionbar:OnEnable()
             ["WD"] = KEY_MOUSEWHEELDOWN,
             ["ML"] = KEY_BUTTON1,
             ["MR"] = KEY_BUTTON2,
-            ["MM"] = KEY_BUTTON3,
+            ["M3"] = KEY_BUTTON3,
             ["M4"] = KEY_BUTTON4,
             ["M5"] = KEY_BUTTON5,
 
@@ -186,6 +192,37 @@ function Actionbar:OnEnable()
                 Text = gsub(Text, v, i)
             end
         end
+
+        Text = gsub(Text, "(s%-)", "S")
+        Text = gsub(Text, "(a%-)", "A")
+        Text = gsub(Text, "(c%-)", "C")
+        Text = gsub(Text, "(st%-)", "C")
+
+        local ModList = {
+            ["CWU"] = "C%" .. KEY_MOUSEWHEELUP,
+            ["SWU"] = "S%" .. KEY_MOUSEWHEELUP,
+            ["CWD"] = "C%" .. KEY_MOUSEWHEELDOWN,
+            ["SWD"] = "S%" .. KEY_MOUSEWHEELDOWN,
+            ["CML"] = "C%" .. KEY_BUTTON1,
+            ["SML"] = "S%" .. KEY_BUTTON1,
+            ["SMR"] = "C%" .. KEY_BUTTON2,
+            ["CMR"] = "S%" .. KEY_BUTTON2,
+            ["SM4"] = "C%" .. KEY_BUTTON3,
+            ["CM4"] = "S%" .. KEY_BUTTON3,
+            ["CM3"] = "C%" .. KEY_BUTTON4,
+            ["SM3"] = "S%" .. KEY_BUTTON4,
+            ["SM5"] = "C%" .. KEY_BUTTON5,
+            ["CM5"] = "S%" .. KEY_BUTTON5,
+        }
+
+        for i, v in pairs(ModList) do
+            if strmatch(Text, "(" .. v .. ")") then
+                Text = gsub(Text, v, i)
+            end
+        end
+        
+
+
 
         return Text
     end

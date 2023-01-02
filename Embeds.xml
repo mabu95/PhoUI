@@ -15,6 +15,7 @@
     <Include file="Core/PhoUI.lua"/>
     <Include file="Core/AtlasList.lua"/>
     <Include file="Core/Configs/Configs.xml"/>
+    <Include file="Core/Theme.lua"/>
     <Include file="Modules/Unitframes.lua"/>
     <Include file="Modules/Playerframe.lua"/>
     <Include file="Modules/Targetframe.lua"/>
@@ -26,6 +27,6 @@
     <Include file="Modules/Actionbar.lua"/>
     <Include file="Modules/Menu.lua"/>
     <Include file="Modules/Statusbar.lua"/>
-    <Include file="Modules/Theme.lua"/>
+    <Include file="Modules/Theme/Theme.xml"/>
     <Include file="Core/Options.lua"/>
 </Ui>

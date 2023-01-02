@@ -60,6 +60,37 @@ function Module:OnEnable()
                 type = "toggle",
                 width = 1.25,
                 order = 7
+            },
+            short_keybinds = {
+                name = "Short Keybinds",
+                desc = "Use short Keybinds like SWU (Shift-Wheelup)",
+                type = "toggle",
+                order = 8,
+                width = "full"
+            },
+            hotkey = {
+                name = "Show Hotkeys",
+                desc = "Show Hotkeys on Actionbar",
+                type = "toggle",
+                width = 1.25,
+                order = 9
+            },
+            macro = {
+                name = "Show Macros",
+                desc = "Show Macros on Actionbar",
+                type = "toggle",
+                width = 1.25,
+                order = 10
+            },
+            text_size = {
+                name = "Textsize",
+                desc = "Set Text Size for Actionbar Texts",
+                type = "range",
+                min = 8,
+                max = 20,
+                step = 1,
+                order = 11,
+                width = "full"
             }
         }
     }

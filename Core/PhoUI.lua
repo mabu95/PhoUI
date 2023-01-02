@@ -32,8 +32,8 @@ function PhoUI:OnInitialize()
                 rested = false,
                 pvpicon = false,
                 buff_collapse = false,
-                buffs = 25,
-                debuffs = 20
+                buffsize = 25,
+                debuffsize = 20
             },
             actionbar = {
                 enable = true,
@@ -96,6 +96,23 @@ function PhoUI:OnInitialize()
         end
     end
 
+    function self:SetButtonAtlas(Button, TextureType, Texture)
+        local List = PhoUI.AtlasList
+
+        if List[Texture] then
+            local Info = List[Texture]
+
+            if TextureType == "NormalTexture" then
+                Button:SetNormalTexture(Info.Texture)
+                Button:GetNormalTexture():SetTexCoord(unpack(Info.TexCoord))
+            elseif TextureType == "PushedTexture" then
+
+            elseif TextureType == "HighlightTexture" then
+                
+            end
+        end
+    end
+
     function self:GetTexture(TextureName)
         return LibSharedMedia:Fetch("statusbar", TextureName)
     end
@@ -113,6 +130,6 @@ function PhoUI:OnInitialize()
     end
 
     if self.db.profile.general.welcome_message then
-        print("|cff8788EE[Welcome to PhoUI]|cffffffff You are using Version: " .. GetAddOnMetadata(p, "Version"))
+        print("|cff8788EE[Welcome to PhoUI]|cffffffff You are using Version: " .. GetAddOnMetadata(p, "Version") .. ". Open Settings with /pho")
     end
 end

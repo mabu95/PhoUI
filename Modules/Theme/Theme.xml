@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="Calendar.lua"/>
+    <Include file="Character.lua"/>
+    <Include file="Bags.lua"/>
+    <Include file="Macros.lua"/>
+    <Include file="Map.lua"/>
+</Ui>
