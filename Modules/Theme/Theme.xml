@@ -4,4 +4,5 @@
     <Include file="Bags.lua"/>
     <Include file="Macros.lua"/>
     <Include file="Map.lua"/>
+    <Include file="GameMenu.lua"/>
 </Ui>

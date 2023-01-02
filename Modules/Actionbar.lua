@@ -73,7 +73,13 @@ function Actionbar:OnEnable()
             local Icon = _G[Button:GetName() .. "Icon"]
             --local Mask = _G[Button:GetName()].IconMask
             --Mask:Hide()
-            --Icon:SetTexCoord(.08, .92, .08, .92)
+            --[[
+            Icon:SetTexCoord(.08, .92, .08, .92)
+            Icon:ClearAllPoints()
+            Icon:SetPoint("TOPLEFT", 1, -1)
+            Icon:SetPoint("BOTTOMRIGHT", -1, 1)
+            Icon:SetDrawLayer("BACKGROUND")
+            ]]
 
             local Width, Height = Button:GetSize()
 
@@ -87,11 +93,6 @@ function Actionbar:OnEnable()
 
             PhoUI:SetButtonAtlas(Button, "NormalTexture", "Button_Border")
             Button:GetNormalTexture():SetSize(Width, Height)
-            --Button:GetNormalTexture():SetSize(Width, Height)
-            --Button:SetNormalTexture()
-            --Button:SetNormalTexture(PhoUI.TEXTURE_PATH .. "Button")
-            --Button:SetNormalAtlas("UI-HUD-ActionBar-IconFrame", true)
-
 
             Button:SetHighlightTexture(PhoUI.TEXTURE_PATH .. "Button_Highlight")
             Button:SetPushedTexture(PhoUI.TEXTURE_PATH .. "Button_Pushed")
@@ -119,19 +120,30 @@ function Actionbar:OnEnable()
             if Button and Button.Backdrop == nil then
                 Button.Backdrop = CreateFrame("Frame", Button:GetName() .. "Backdrop", Button, "BackdropTemplate")
                 Button.Backdrop:SetFrameLevel(Button:GetFrameLevel() - 1)
-                Button.Backdrop:SetBackdrop({
-                    bgFile = "",
-                    edgeFile = PhoUI.TEXTURE_PATH .. "Backdrop",
-                    tile = false, tileSize = 0,
-                    edgeSize = 5,
-                    insets = { left = 5, right = 5, top = 5, bottom = 5 }
-                })
-                Button.Backdrop:SetPoint("TOPLEFT", Button, "TOPLEFT", -2, 2)
+                if PhoUI.DARK_MODE then
+                    Button.Backdrop:SetBackdrop({
+                        bgFile = "",
+                        edgeFile = PhoUI.TEXTURE_PATH .. "Backdrop",
+                        tile = false, tileSize = 0,
+                        edgeSize = 5,
+                        insets = { left = 5, right = 5, top = 5, bottom = 5 }
+                    })
+                    Button.Backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+                else
+                    Button.Backdrop:SetBackdrop({
+                        bgFile = "",
+                        edgeFile = PhoUI.TEXTURE_PATH .. "Backdrop",
+                        tile = false, tileSize = 0,
+                        edgeSize = 5,
+                        insets = { left = 5, right = 5, top = 5, bottom = 5 }
+                    })
+                    Button.Backdrop:SetBackdropBorderColor(0, 0, 0, .4)
+                end
+
+                Button.Backdrop:SetPoint("TOPLEFT", Button, "TOPLEFT", -3, 3)
                 Button.Backdrop:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 2, -2)
-                Button.Backdrop:SetBackdropBorderColor(0, 0, 0, .4)
             end
             
-
             UpdateKeybind(Button)
         end
     
@@ -220,9 +232,6 @@ function Actionbar:OnEnable()
                 Text = gsub(Text, v, i)
             end
         end
-        
-
-
 
         return Text
     end

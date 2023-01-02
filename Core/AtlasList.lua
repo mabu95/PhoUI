@@ -91,6 +91,6 @@ _G[p].AtlasList = {
     -- Buttons
     Button_Border = {
         Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Pho_Buttons",
-        TexCoord = {0/256, 64/256, 0/256, 64/256}
+        TexCoord = {0/256, 45/256, 0/256, 45/256}
     }
 }
