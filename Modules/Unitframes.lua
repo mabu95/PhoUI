@@ -33,7 +33,7 @@ function Module:OnEnable()
 
     local function SetUnColoredStatusBars(Statusbar)
         if UnitExists(Statusbar.unit) then
-            if (not UnitPlayerControlled(Statusbar.unit) and UnitIsTapDenied(Statusbar.unit)) then
+            if (not UnitPlayerControlled(Statusbar.unit) and UnitIsTapDenied(Statusbar.unit)) or (UnitIsPlayer(Statusbar.unit) and not UnitIsConnected(Statusbar.unit)) then
                 Statusbar:SetStatusBarColor(.5, .5, .5)
             else
                 local Reaction = FACTION_BAR_COLORS[UnitReaction(Statusbar.unit, "player")]
@@ -42,7 +42,7 @@ function Module:OnEnable()
                     Statusbar:SetStatusBarColor(Reaction.r, Reaction.g, Reaction.b);
                 else
                     Statusbar:SetStatusBarDesaturated(1)
-                    Statusbar:SetStatusBarColor(UnitSelectionColor(Statusbar.unit));
+                    Statusbar:SetStatusBarColor(UnitSelectionColor(Statusbar.unit), true);
                 end
                 
             end

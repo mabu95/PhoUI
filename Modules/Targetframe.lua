@@ -44,6 +44,9 @@ function Module:OnEnable()
         Frame.manabar.ManaBarMask:Hide()
         Frame.healthbar.OverAbsorbGlow:Hide()
 
+        --Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+        Frame.healthbar:GetStatusBarTexture():SetAtlas("UI-HUD-UnitFrame-Player-PortraitOff-Bar-Health-Status")
+
         if db.frame_style == "big" then
             Frame.healthbar:SetSize(134, 33)
             Frame.healthbar:ClearAllPoints()
