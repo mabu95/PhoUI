@@ -15,6 +15,8 @@ externals:
   Libs/LibSharedMedia-3.0: https://repos.wowace.com/wow/libsharedmedia-3-0/trunk
   Libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
 
+enable-nolib-creation: no
+
 ignore:
   - readme.md
   - .gitignore
