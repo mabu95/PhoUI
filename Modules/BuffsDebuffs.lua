@@ -26,7 +26,7 @@ function Module:OnEnable()
                 HOOKED_BUFFS[Frame] = true
 
                 if not Frame.Backdrop then
-                    Frame.Backdrop = CreateFrame("Frame", nil, nil, "BackdropTemplate")
+                    --[[Frame.Backdrop = CreateFrame("Frame", nil, nil, "BackdropTemplate")
                     Frame.Backdrop:SetFrameLevel(Frame:GetFrameLevel() - 1)
 
                     Frame.Backdrop:SetBackdrop({
@@ -39,6 +39,7 @@ function Module:OnEnable()
                     Frame.Backdrop:SetBackdropBorderColor(0, 0, 0, 1)
                     Frame.Backdrop:SetPoint("TOPLEFT", Frame, "TOPLEFT", -3, 3)
                     Frame.Backdrop:SetPoint("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 2, -2)
+                    ]]
                 end
             end
         end
