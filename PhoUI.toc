@@ -1,6 +1,6 @@
 ## Interface: 100002
 ## Author: Phoyk
-## Version: 1.0.7
+## Version: 1.0.8
 ## Title: |cff8788EE[Pho]|cffffffffUI
 ## SavedVariables: PHOUIDB
 

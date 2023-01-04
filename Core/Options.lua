@@ -8,29 +8,7 @@ local Module = PhoUI:NewModule("Core.Options")
 
 function Module:OnEnable()
 
-    local function CreatePopupDialog(Title, Text)
-        StaticPopupDialogs["PhoUI_" .. Title] = {
-            text = Title,
-            button1 = "Close",
-            hasEditBox = 1,
-            hideOnEscape = 1,
-            timeout = 0,
-            OnShow = function(self)
-                local EditBox = self.editBox
-                EditBox:SetText(Text)
-                EditBox:HighlightText()
-                EditBox:SetFocus()
-            end
-        }
-    end
-
-    CreatePopupDialog("Twitch", "https://www.twitch.tv/phoyk")
-    CreatePopupDialog("Github", "https://github.com/mabu95/PhoUI")
-    CreatePopupDialog("Curseforge", "https://www.curseforge.com/wow/addons/phoui/")
-    CreatePopupDialog("Twitter", "https://twitter.com/phoykwow")
-    CreatePopupDialog("Wago", "https://www.curseforge.com/wow/addons/phoui/")
-    CreatePopupDialog("WoWInterface", "https://twitter.com/phoykwow")
-
+    local About = PhoUI:GetModule("Core.Configs.About")
     local General = PhoUI:GetModule("Core.Configs.General")
     local Unitframes = PhoUI:GetModule("Core.Configs.Unitframes")
     local Actionbar = PhoUI:GetModule("Core.Configs.Actionbar")
@@ -44,87 +22,37 @@ function Module:OnEnable()
         end,
         type = "group",
         args = {
+            logo = {
+                name = "|cff8788EEPho|cffffffffUI" .. " v" .. GetAddOnMetadata("PhoUI", "Version"),
+                order = 1,
+                type = "description",
+                fontSize = "large",
+                image = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Logo"
+            },
+            break1 = {
+                name = "",
+                type = "header",
+                order = 2
+            },
             desc = {
+                name = "I responded to my needs and created a perfect UI for me. You can use the options to customize it as you like. Only used blizzard elements to stay as close as possible to the original UI.",
                 type = "description",
-                fontSize = "medium",
-                name = "I originally created the addon for myself. Any form of support is appreciated.",
-                order = 1
-            },
-            spacer1 = {
-                name = "",
-                type = "description",
-                fontSize = "medium",
-                order = 2,
-            },
-            twitch = {
-                name = "Twitch",
-                type = "execute",
-                width = 1.18,
                 order = 3,
-                func = function()
-                    StaticPopup_Show("PhoUI_Twitch", "Twitch")
-                end
             },
-            Curseforge = {
-                name = "Curseforge",
-                type = "execute",
-                width = 1.18,
-                order = 4,
-                func = function()
-                    StaticPopup_Show("PhoUI_Curseforge", "Curseforge")
-                end
-            },
-            Wago = {
-                name = "Wago",
-                type = "execute",
-                width = 1.18,
-                order = 5,
-                func = function()
-                    StaticPopup_Show("PhoUI_Wago", "Wago")
-                end
-            },
-            WoWInterface = {
-                name = "WoWInterface",
-                type = "execute",
-                width = 1.18,
-                order = 6,
-                func = function()
-                    StaticPopup_Show("PhoUI_WoWInterface", "WoWInterface")
-                end
-            },
-            twitter = {
-                name = "Twitter",
-                type = "execute",
-                width = 1.18,
-                order = 7,
-                func = function()
-                    StaticPopup_Show("PhoUI_Twitter", "Twitter")
-                end
-            },
-            Github = {
-                name = "Github",
-                type = "execute",
-                width = 1.18,
-                order = 8,
-                func = function()
-                    StaticPopup_Show("PhoUI_Github", "Github")
-                end
-            },
-            spacer2 = {
+            break2 = {
                 name = "",
-                type = "description",
-                fontSize = "medium",
-                order = 9,
+                type = "header",
+                order = 4
             },
             Reload = {
                 name = "Reload UI",
                 type = "execute",
-                width = "full",
-                order = 10,
+                order = 5,
                 func = function()
                     ReloadUI()
                 end
             },
+            about = About.Config,
             general = General.Config,
             unitframes = Unitframes.Config,
             actionbar = Actionbar.Config
@@ -135,8 +63,9 @@ function Module:OnEnable()
     local PhoUIOptions = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PhoUI")
 
     function SlashCommand(msg)
-        InterfaceOptionsFrame_OpenToCategory(PhoUIOptions)
-        InterfaceOptionsFrame_OpenToCategory(PhoUIOptions)
+        --InterfaceOptionsFrame_OpenToCategory(PhoUIOptions)
+       -- InterfaceOptionsFrame_OpenToCategory(PhoUIOptions)
+       LibStub("AceConfigDialog-3.0"):Open("PhoUI")
     end
 
     PhoUI:RegisterChatCommand("pho", SlashCommand)
@@ -144,4 +73,8 @@ function Module:OnEnable()
     PhoUI:RegisterChatCommand("rl", function(msg)
         ReloadUI()
     end)
+    LibStub("AceConfigDialog-3.0"):SetDefaultSize("PhoUI", 550, 640)
+
+    local config = LibStub("AceConfigDialog-3.0")
+    
 end

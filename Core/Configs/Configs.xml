@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="About.lua" />
     <Include file="General.lua"/>
     <Include file="Unitframes.lua"/>
     <Include file="Actionbar.lua"/>

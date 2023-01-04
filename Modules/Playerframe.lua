@@ -49,23 +49,40 @@ function Module:OnEnable()
         end
     end
 
-    local function PlayerFrame_ToPlayerArt()
-        PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-        PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetDrawLayer("BACKGROUND")
-        PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetDrawLayer("BACKGROUND")
-        PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetSize(58, 58)
-        PhoUI:CreateLevelFrame("PlayerLevelFrame", PlayerFrame, PlayerFrame:GetFrameLevel() + 10, {"BOTTOMLEFT", 22, 16})
-        PlayerFrame.PlayerFrameContainer:SetFrameLevel(4)
-        PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual:SetFrameLevel(5)
+    local function StyleExtraBar()
+        if PlayerFrameAlternateManaBar ~= nil then
+            PlayerFrameAlternateManaBar.DefaultBorder:SetVertexColor(0.2, 0.2, 0.2)
+            PlayerFrameAlternateManaBar.DefaultBorderLeft:SetVertexColor(0.2, 0.2, 0.2)
+            PlayerFrameAlternateManaBar.DefaultBorderRight:SetVertexColor(0.2, 0.2, 0.2)
+        end
+    end
 
-        PhoUI:HideFrame(PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerPortraitCornerIcon)
-        PlayerFrame.healthbar.HealthBarMask:Hide()
-        PlayerFrame.healthbar.OverAbsorbGlow:Hide()
-        PlayerFrame.manabar.ManaBarMask:Hide()
-        
-        PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:ClearAllPoints()
-        PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:SetPoint("LEFT", PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual, 0, 0)
-        PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:SetScale(0.8)
+    local function PlayerFrame_ToPlayerArt()
+        if db.frame_style ~= "blizzard" then
+            PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+            PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetDrawLayer("BACKGROUND")
+            PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetDrawLayer("BACKGROUND")
+            PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetSize(58, 58)
+            PhoUI:CreateLevelFrame("PlayerLevelFrame", PlayerFrame, PlayerFrame:GetFrameLevel() + 10, {"BOTTOMLEFT", 22, 16})
+            PlayerFrame.PlayerFrameContainer:SetFrameLevel(4)
+            PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual:SetFrameLevel(5)
+
+            PhoUI:HideFrame(PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerPortraitCornerIcon)
+            PlayerFrame.healthbar.HealthBarMask:Hide()
+            PlayerFrame.healthbar.OverAbsorbGlow:Hide()
+            PlayerFrame.manabar.ManaBarMask:Hide()
+            
+            PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:ClearAllPoints()
+            PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:SetPoint("LEFT", PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual, 0, 0)
+            PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:SetScale(0.8)
+        end
+
+        if PhoUI.DARK_MODE then
+            PlayerFrame.PlayerFrameContainer.FrameTexture:SetDesaturated(1)
+            PlayerFrame.PlayerFrameContainer.FrameTexture:SetVertexColor(0.2, 0.2, 0.2)
+    
+            StyleExtraBar()
+        end
 
         if db.frame_style == "big" then
             PhoUI:SetAtlas(PlayerFrame.PlayerFrameContainer.FrameTexture, "PlayerFrame_Big", true)
@@ -100,7 +117,7 @@ function Module:OnEnable()
             ManaBar.LeftText:SetPoint("LEFT", ManaBar, "LEFT", 12, 0)
             ManaBar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
             ManaBar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
-        else
+        elseif db.frame_style == "small" then
             PhoUI:SetAtlas(PlayerFrame.PlayerFrameContainer.FrameTexture, "PlayerFrame_Small", true)
             
             local FrameFlash = PlayerFrame.PlayerFrameContainer.FrameFlash
@@ -135,13 +152,15 @@ function Module:OnEnable()
             ManaBar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
         end
 
-        PlayerLevelText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+        if db.frame_style ~= "blizzard" then
+            PlayerLevelText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
 
-        if PlayerFrame.Background == nil then
-            PlayerFrame.Background = PlayerFrame:CreateTexture(nil, "ARTWORK")
-            PlayerFrame.Background:SetSize(134, 44)
-            PlayerFrame.Background:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", 75, -27)
-            PlayerFrame.Background:SetColorTexture(0, 0, 0, .6)
+            if PlayerFrame.Background == nil then
+                PlayerFrame.Background = PlayerFrame:CreateTexture(nil, "ARTWORK")
+                PlayerFrame.Background:SetSize(134, 44)
+                PlayerFrame.Background:SetPoint("TOPLEFT", PlayerFrame, "TOPLEFT", 75, -27)
+                PlayerFrame.Background:SetColorTexture(0, 0, 0, .6)
+            end
         end
 
         if db.chain ~= "none" then
@@ -164,8 +183,7 @@ function Module:OnEnable()
         PlayerLevelText:SetParent(PlayerLevelFrame)
         PlayerLevelText:SetPoint("CENTER", PlayerLevelFrame, 0, 0)
 
-        PlayerHitIndicator:SetParent(PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual)
-    end
+        PlayerHitIndicator:SetParent(PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual)    end
 
     local function PlayerFrame_UpdatePlayerNameTextAnchor()
         PlayerName:SetJustifyH("CENTER")
@@ -184,11 +202,13 @@ function Module:OnEnable()
         local PlayerRestLoop = PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerRestLoop;
         local StatusTexture = PlayerFrame.PlayerFrameContent.PlayerFrameContentMain.StatusTexture
 
-        AttackIcon:SetParent(PlayerLevelFrame)
-        AttackIcon:ClearAllPoints()
-        AttackIcon:SetPoint("CENTER", PlayerLevelFrame, "CENTER", 0, 0)
-        AttackIcon:SetSize(13, 12)
-        AttackIcon:SetDrawLayer("OVERLAY", 7)
+        if db.frame_style ~= "blizzard" then
+            AttackIcon:SetParent(PlayerLevelFrame)
+            AttackIcon:ClearAllPoints()
+            AttackIcon:SetPoint("CENTER", PlayerLevelFrame, "CENTER", 0, 0)
+            AttackIcon:SetSize(13, 12)
+            AttackIcon:SetDrawLayer("OVERLAY", 7)
+        end
 
         if not db.rested then
             if IsResting() then
@@ -197,14 +217,16 @@ function Module:OnEnable()
             end
         end
 
-        if PlayerFrame.inCombat then
-            if PlayerFrame.PlayerFrameContent.PlayerFrameContentMain.StatusTexture:IsShown() then
+        if db.frame_style ~= "blizzard" then
+            if PlayerFrame.inCombat then
+                if PlayerFrame.PlayerFrameContent.PlayerFrameContentMain.StatusTexture:IsShown() then
+                    PlayerLevelText:Hide()
+                end
+            elseif PlayerFrame.onHateList then
                 PlayerLevelText:Hide()
+            else
+                PlayerLevelText:Show()
             end
-        elseif PlayerFrame.onHateList then
-            PlayerLevelText:Hide()
-        else
-            PlayerLevelText:Show()
         end
     end
 
@@ -228,8 +250,14 @@ function Module:OnEnable()
         PlayerLevelText:SetShown(true)
     end
 
-    if not db.classbar then
-        PlayerFrame:HookScript("OnEvent", function()
+    PlayerFrame:HookScript("OnEvent", function(s, e)
+        if e == "PLAYER_ENTERING_WORLD" then
+            s.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+            s.healthbar.AnimatedLossBar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+            s.healthbar.myHealPredictionBar:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+            s.healthbar.otherHealPredictionBar:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")        end
+
+        if not db.classbar then
             if PlayerFrame.classPowerBar then
                 PlayerFrame.classPowerBar:Hide()
             end
@@ -239,12 +267,15 @@ function Module:OnEnable()
             MonkStaggerBar:Hide()
             EssencePlayerFrame:Hide()
             RuneFrame:Hide()
-        end)
-    end
+        end
+    end)
 
     hooksecurefunc("PlayerFrame_ToPlayerArt", PlayerFrame_ToPlayerArt)
-    hooksecurefunc("PlayerFrame_UpdateLevel", PlayerFrame_UpdateLevel)
-    hooksecurefunc("PlayerFrame_UpdatePlayerNameTextAnchor", PlayerFrame_UpdatePlayerNameTextAnchor)
     hooksecurefunc("PlayerFrame_UpdateStatus", PlayerFrame_UpdateStatus)
-    hooksecurefunc("PlayerFrame_UpdateRolesAssigned", PlayerFrame_UpdateRolesAssigned)
+
+    if db.frame_style ~= "blizzard" then
+        hooksecurefunc("PlayerFrame_UpdateLevel", PlayerFrame_UpdateLevel)
+        hooksecurefunc("PlayerFrame_UpdatePlayerNameTextAnchor", PlayerFrame_UpdatePlayerNameTextAnchor)
+        hooksecurefunc("PlayerFrame_UpdateRolesAssigned", PlayerFrame_UpdateRolesAssigned)
+    end
 end

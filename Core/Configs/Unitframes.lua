@@ -26,6 +26,7 @@ function Module:OnEnable()
                 values = {
                     ["small"] = "Small",
                     ["big"] = "Big",
+                    ["blizzard"] = "Blizzard"
                 }
             },
             chain = {
@@ -94,6 +95,7 @@ function Module:OnEnable()
                 type = "range",
                 min = 15,
                 max = 50,
+                step = 1,
                 order = 10,
                 width = 1.25
             },
@@ -103,6 +105,7 @@ function Module:OnEnable()
                 type = "range",
                 min = 15,
                 max = 50,
+                step = 1,
                 order = 11,
                 width = 1.25
             }

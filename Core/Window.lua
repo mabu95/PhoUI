@@ -8,6 +8,7 @@ local Module = PhoUI:NewModule("Core.Window")
 local AceGUI = LibStub("AceGUI-3.0")
 
 function Module:OnEnable()
+    local Title = "|cff8788EEPho|cffffffffUI"
     local Tree = {
         {
             value = "About",
@@ -18,6 +19,10 @@ function Module:OnEnable()
                     text = "testchild"
                 }
             }
+        },
+        {
+            value = "general",
+            text = "General",
         },
         {
             value = "unitframes",
@@ -39,13 +44,12 @@ function Module:OnEnable()
     }
 
     local Window = AceGUI:Create("Frame")
-    Window:SetTitle("PhoUI " .. "v" .. GetAddOnMetadata("PhoUI", "Version"))
+    Window:SetTitle(Title .. " v" .. GetAddOnMetadata("PhoUI", "Version"))
     Window:SetStatusText("AceGUI-3.0 Example Container Frame")
     Window:SetLayout("flow")
     Window:SetCallback("OnClose", function(Widget) AceGUI:Release(Widget) end)
 
 
-    print(Window.BottomEdge)
     local TreeGroup = AceGUI:Create("TreeGroup")
     TreeGroup:SetFullHeight(true)
     TreeGroup:SetLayout("Flow")

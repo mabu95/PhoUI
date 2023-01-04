@@ -21,6 +21,7 @@ function PhoUI:OnInitialize()
             general = {
                 welcome_message = true,
                 font = "Gotham-Narrow-Medium",
+                disable_font = false,
                 theme = "blizzard"
             },
             unitframes = {
@@ -42,7 +43,7 @@ function PhoUI:OnInitialize()
                 menu_enable = true,
                 menu_hide = false,
                 short_keybinds = true,
-                text_size = 10,
+                text_size = 8,
                 hotkey = true,
                 macro = true
             }
@@ -62,7 +63,12 @@ function PhoUI:OnInitialize()
     self.db = LibStub("AceDB-3.0"):New("PHOUIDB", self.Options, true)
 
     self.THEME = self.db.profile.general.theme
-    self.DEFAULT_FONT = LibSharedMedia:Fetch("font", self.db.profile.general.font)
+    if self.db.profile.general.disable_font then
+        self.DEFAULT_FONT = STANDARD_TEXT_FONT
+    else
+        self.DEFAULT_FONT = LibSharedMedia:Fetch("font", self.db.profile.general.font) 
+    end
+    
 
     if self.THEME == "dark" then
         self.DARK_MODE = true

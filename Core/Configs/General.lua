@@ -15,26 +15,40 @@ function Module:OnEnable()
             header = {
                 name = "General Options",
                 type = "header",
+                dialogControl = "SFX-Header",
+                disabled = true,
                 order = 1
+            },
+            spacer1 = {
+                name = " ",
+                type = "description",
+                order = 2,
             },
             welcome_message = {
                 name = "PhoUI Welcome Message",
                 desc = "Show Welcome Message in Chat",
                 type = "toggle",
                 width = "full",
-                order = 2
+                order = 3
+            },
+            spacer2 = {
+                name = "",
+                type = "header",
+                order = 4,
             },
             header_theme = {
                 name = "Theme Options",
                 type = "header",
-                order = 3
+                dialogControl = "SFX-Header",
+                disabled = true,
+                order = 5
             },
             theme = {
                 name = "Theme",
                 desc = "Set the Theme for UI",
                 type = "select",
-                order = 4,
-                width = 1.25,
+                order = 6,
+                width = "full",
                 values = {
                     ["dark"] = "Dark",
                     ["blizzard"] = "Blizzard"
@@ -44,10 +58,17 @@ function Module:OnEnable()
                 name = "Font",
                 desc = "Set Global Font (Restart your Game after)",
                 type = "select",
-                order = 5,
-                width = 1.25,
+                order = 7,
+                width = "full",
                 values = PhoUI.LibSharedMedia:HashTable("font"),
                 dialogControl = "LSM30_Font",
+            },
+            disable_font = {
+                name = "Disable Font",
+                desc = "Disable Custom Font and set it to Default",
+                type = "toggle",
+                width = "full",
+                order = 8
             }
         }
     }

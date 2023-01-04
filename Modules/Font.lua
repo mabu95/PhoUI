@@ -7,6 +7,9 @@ local p, h, o, u, i = ...
 local Module = PhoUI:NewModule("Font")
 
 function Module:OnInitialize()
+
+    if PhoUI.db.profile.general.disable_font then return end
+
     STANDARD_TEXT_FONT          = PhoUI.DEFAULT_FONT
     UNIT_NAME_FONT              = PhoUI.DEFAULT_FONT
     DAMAGE_TEXT_FONT            = PhoUI.DEFAULT_FONT

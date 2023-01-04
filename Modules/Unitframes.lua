@@ -38,10 +38,9 @@ function Module:OnEnable()
             else
                 local Reaction = FACTION_BAR_COLORS[UnitReaction(Statusbar.unit, "player")]
                 if Reaction then
-                    Statusbar:SetStatusBarDesaturated(1)
+                    print("hey")
                     Statusbar:SetStatusBarColor(Reaction.r, Reaction.g, Reaction.b);
                 else
-                    Statusbar:SetStatusBarDesaturated(1)
                     Statusbar:SetStatusBarColor(UnitSelectionColor(Statusbar.unit), true);
                 end
                 

@@ -9,14 +9,14 @@ local Module = PhoUI:NewModule("Targetframe")
 function Module:OnEnable()
     local db = PhoUI.db.profile.unitframes
 
-    PhoUI:CreateLevelFrame("TargetLevelFrame", TargetFrame, TargetFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -22, 16})
-    PhoUI:CreateLevelFrame("FocusLevelFrame", FocusFrame, FocusFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -22, 16})
-
-    local function CheckToTFrame(Frame)
-        
+    if db.frame_style ~= "blizzard" then
+        PhoUI:CreateLevelFrame("TargetLevelFrame", TargetFrame, TargetFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -22, 16})
+        PhoUI:CreateLevelFrame("FocusLevelFrame", FocusFrame, FocusFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -22, 16})
     end
 
     local function SetFrameTexture(Frame)
+        Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+
         if db.frame_style == "big" then
             PhoUI:SetAtlas(Frame.TargetFrameContainer.FrameTexture, "TargetFrame_Big", true)
             PhoUI:SetAtlas(Frame.TargetFrameContainer.Flash, "TargetFrame_Big_Flash", true)
@@ -27,10 +27,18 @@ function Module:OnEnable()
             PhoUI:SetAtlas(Frame.TargetFrameContainer.Flash, "TargetFrame_Small_Flash", true)
             Frame.TargetFrameContainer.Flash:ClearAllPoints()
             Frame.TargetFrameContainer.Flash:SetPoint("CENTER", 1, 2)
+
+            if Frame.NameBackground == nil then
+                Frame.NameBackground = Frame:CreateTexture(nil, "BORDER", nil, -6)
+                Frame.NameBackground:SetDesaturated(1)
+                Frame.NameBackground:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+                Frame.NameBackground:SetSize(133, 18)
+                Frame.NameBackground:SetPoint("TOPLEFT", 24, -26)
+            end
         end
 
         if Frame.Background == nil then
-            Frame.Background = Frame:CreateTexture(nil, "BORDER")
+            Frame.Background = Frame:CreateTexture(nil, "BORDER", nil, -7)
             Frame.Background:SetSize(134, 44)
             Frame.Background:SetPoint("TOPRIGHT", Frame, "TOPRIGHT", -75, -27)
             Frame.Background:SetColorTexture(0, 0, 0, .6)
@@ -39,7 +47,8 @@ function Module:OnEnable()
 
     local function UpdateFrame(Frame)
         if not Frame:IsShown() then return end
-        
+        if db.frame_style == "blizzard" then return end
+
         Frame.healthbar.HealthBarMask:Hide()
         Frame.manabar.ManaBarMask:Hide()
         Frame.healthbar.OverAbsorbGlow:Hide()
@@ -62,7 +71,6 @@ function Module:OnEnable()
             Frame.manabar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
             Frame.manabar.LeftText:SetPoint("LEFT", Frame.manabar, 5, 0)
             Frame.manabar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
-
         else
             Frame.healthbar:SetSize(134, 12)
             Frame.healthbar:ClearAllPoints()
@@ -82,14 +90,18 @@ function Module:OnEnable()
     end
 
     local function CheckClassification(Frame)
-        Frame.TargetFrameContent.TargetFrameContentMain.ReputationColor:Hide()
-        Frame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(Frame.TargetFrameContainer:GetFrameLevel() - 2)
-
-        SetFrameTexture(Frame)
+        if db.frame_style ~= "blizzard" then
+            Frame.TargetFrameContent.TargetFrameContentMain.ReputationColor:Hide()
+            Frame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(Frame.TargetFrameContainer:GetFrameLevel() - 2)
+            SetFrameTexture(Frame)
+        end
 
         if PhoUI.DARK_MODE and Frame.TargetFrameContainer.BossPortraitFrameTexture ~= nil then
             Frame.TargetFrameContainer.BossPortraitFrameTexture:SetDesaturated(1)
             Frame.TargetFrameContainer.BossPortraitFrameTexture:SetVertexColor(0.2, 0.2, 0.2)
+
+            Frame.TargetFrameContainer.FrameTexture:SetDesaturated(1)
+            Frame.TargetFrameContainer.FrameTexture:SetVertexColor(0.2, 0.2, 0.2)
         end
 
         Frame.TargetFrameContent.TargetFrameContentContextual.PrestigePortrait:ClearAllPoints()
@@ -101,16 +113,24 @@ function Module:OnEnable()
             Frame.TargetFrameContent.TargetFrameContentContextual.PrestigeBadge:Hide()
         end
 
-        local Name = Frame.TargetFrameContent.TargetFrameContentMain.Name
-        Name:ClearAllPoints()
-        Name:SetJustifyH("CENTER")
-        Name:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+        if db.frame_style ~= "blizzard" then
+            local Name = Frame.TargetFrameContent.TargetFrameContentMain.Name
+            Name:ClearAllPoints()
+            Name:SetJustifyH("CENTER")
+            Name:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
 
-        if db.frame_style == "big" then
-            Name:SetPoint("TOPRIGHT", Frame, "TOPRIGHT", -97, -13)
-        else
-            Name:SetPoint("TOPRIGHT", Frame, "TOPRIGHT", -97, -29)
-            Name:SetParent(Frame)
+            if db.frame_style == "big" then
+                Name:SetPoint("TOPRIGHT", Frame, "TOPRIGHT", -97, -13)
+            else
+                Name:SetPoint("TOPRIGHT", Frame, "TOPRIGHT", -97, -29)
+                Name:SetParent(Frame)
+                if (not UnitPlayerControlled(Frame.unit) and UnitIsTapDenied(Frame.unit)) then
+                    Frame.NameBackground:SetVertexColor(0.5, 0.5, 0.5);
+                else
+                    local r,g,b = UnitSelectionColor(Frame.unit)
+                    Frame.NameBackground:SetVertexColor(r, g, b, 1);
+                end
+            end
         end
     end
 
@@ -139,6 +159,12 @@ function Module:OnEnable()
     end
 
     local function TargetFrameToT_Update()
+        if db.frame_style == "blizzard" then
+            FocusFrameToT.FrameTexture:SetDesaturated(1)
+            FocusFrameToT.FrameTexture:SetVertexColor(0.2, 0.2, 0.2)
+            return
+        end
+
         if TargetFrameToT.PhoUI == nil then
             local Healthbar = TargetFrameToT.HealthBar
             local Manabar = TargetFrameToT.ManaBar
@@ -190,6 +216,12 @@ function Module:OnEnable()
     end
 
     local function FocusFrameToT_Update()
+        if db.frame_style == "blizzard" then
+            FocusFrameToT.FrameTexture:SetDesaturated(1)
+            FocusFrameToT.FrameTexture:SetVertexColor(0.2, 0.2, 0.2)
+            return
+        end
+
         if TargetFrameToT.PhoUI == nil then
             local Healthbar = FocusFrameToT.HealthBar
             local Manabar = FocusFrameToT.ManaBar
@@ -241,8 +273,11 @@ function Module:OnEnable()
 
     hooksecurefunc(TargetFrame, "Update", UpdateFrame)
     hooksecurefunc(TargetFrame, "CheckClassification", CheckClassification)
-    hooksecurefunc(TargetFrame, "CheckLevel", TargetFrame_CheckLevel)
     hooksecurefunc(TargetFrameToT, "Update", TargetFrameToT_Update)
+
+    if db.frame_style ~= "blizzard" then
+        hooksecurefunc(TargetFrame, "CheckLevel", TargetFrame_CheckLevel)
+    end
 
     hooksecurefunc("TargetFrame_UpdateBuffAnchor", function(_, Buff)
         Buff:SetSize(db.buffsize, db.buffsize)
@@ -254,14 +289,12 @@ function Module:OnEnable()
             Debuff.Border:SetPoint("TOPLEFT", -1, 0)
             Debuff.Border:SetPoint("BOTTOMRIGHT", 0, 0)
         end
-        if Debuff.Cooldown then
-            --Debuff.Cooldown:SetPoint("TOPLEFT", -1, -1)
-            --Debuff.Cooldown:SetPoint("BOTTOMRIGHT", -1, 0)
-        end
     end)
 
     hooksecurefunc(FocusFrame, "Update", UpdateFrame)
     hooksecurefunc(FocusFrame, "CheckClassification", CheckClassification)
-    hooksecurefunc(FocusFrame, "CheckLevel", FocusFrame_CheckLevel)
     hooksecurefunc(FocusFrameToT, "Update", FocusFrameToT_Update)
+    if db.frame_style ~= "blizzard" then
+        hooksecurefunc(FocusFrame, "CheckLevel", FocusFrame_CheckLevel)
+    end
 end
