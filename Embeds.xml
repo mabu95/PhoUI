@@ -19,6 +19,7 @@
     <Include file="Modules/Unitframes.lua"/>
     <Include file="Modules/Playerframe.lua"/>
     <Include file="Modules/Targetframe.lua"/>
+    <Include file="Modules/BuffsDebuffs.lua"/>
     <Include file="Modules/PetFrame.lua"/>
     <Include file="Modules/Tooltip.lua"/>
     <Include file="Modules/Font.lua"/>
@@ -28,5 +29,6 @@
     <Include file="Modules/Menu.lua"/>
     <Include file="Modules/Statusbar.lua"/>
     <Include file="Modules/Theme/Theme.xml"/>
+    <!--<Include file="Core/Window.lua"/>-->
     <Include file="Core/Options.lua"/>
 </Ui>
