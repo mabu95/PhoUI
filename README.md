@@ -3,7 +3,7 @@
 I responded to my needs and created a perfect UI for me. You can use the options to customize it as you like.
 Only used blizzard elements to stay as close as possible to the original UI.
 
-![phoui](small_frames.png)
+![phoui](PhoUI_Preview.png)
 
 **Features**
 -   Default Unitframes, but bigger
