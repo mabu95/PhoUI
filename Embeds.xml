@@ -9,6 +9,8 @@
     <Include file="Libs\AceDB-3.0\AceDB-3.0.xml"/>
     <Include file="Libs\AceConfig-3.0\AceConfig-3.0.xml"/>
     <Include file="Libs\LibSharedMedia-3.0\lib.xml"/>
+    <Include file="Libs\LibDBIcon-1.0\lib.xml"/>
+    <Include file="Libs\libdatabroker-1-1\LibDataBroker-1.1.lua"/>
     <Include file="Libs\LibDropDown\embed.xml"/>
     <Include file="Libs\LibEditMode\embed.xml"/>
     <Include file="Libs\LibEditModeOverride\LibEditModeOverride.xml"/>
@@ -29,7 +31,7 @@
     <Include file="Modules/Actionbar.lua"/>
     <Include file="Modules/Menu.lua"/>
     <Include file="Modules/Statusbar.lua"/>
+    <Include file="Modules/Castbar.lua"/>
     <Include file="Modules/Theme/Theme.xml"/>
-    <!--<Include file="Core/Window.lua"/>-->
     <Include file="Core/Options.lua"/>
 </Ui>

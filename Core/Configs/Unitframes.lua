@@ -15,14 +15,16 @@ function Module:OnEnable()
             header = {
                 name = "Unitframes Options",
                 type = "header",
+                dialogControl = "SFX-Header",
+                disabled = true,
                 order = 1
             },
             frame_style = {
                 name = "Frame Style",
                 desc = "Set the Style for Unitframes",
                 type = "select",
-                order = 2,
-                width = 1.25,
+                order = 3,
+                width = "full",
                 values = {
                     ["small"] = "Small",
                     ["big"] = "Big",
@@ -33,8 +35,8 @@ function Module:OnEnable()
                 name = "Playerchain",
                 desc = "Set Chain around Playerframe",
                 type = "select",
-                order = 3,
-                width = 1.25,
+                order = 4,
+                width = "full",
                 values = {
                     ["none"] = "none",
                     [1] = "Boss",
@@ -42,52 +44,59 @@ function Module:OnEnable()
                     [3] = "Elite"
                 }
             },
+            spacer2 = {
+                name = "",
+                type = "header",
+                order = 5,
+            },
             misc_header = {
                 name = "Miscellaneous",
                 type = "header",
-                order = 4
+                dialogControl = "SFX-Header",
+                disabled = true,
+                order = 6
             },
             classcolor = {
                 name = "Classcolor Unitframes",
                 desc = "Set the Unitframes (Bars) Classcolored",
                 type = "toggle",
-                order = 5,
-                width = 1.25
+                order = 7,
+                width = "full"
             },
             classbar = {
                 name = "Classbar",
                 desc = "Show Classbar under Playerframe",
                 type = "toggle",
-                order = 6,
-                width = 1.25
+                order = 8,
+                width = "full"
             },
             hitindicator = {
                 name = "Hitindicator",
                 desc = "Show Hitindicator",
                 type = "toggle",
-                order = 7,
-                width = 1.25
+                order = 9,
+                width = "full"
             },
             rested = {
                 name = "Rested",
                 desc = "Show Rested",
                 type = "toggle",
-                order = 8,
-                width = 1.25
+                order = 10,
+                width = "full"
             },
             pvpicon = {
                 name = "PvP Icon",
                 desc = "Show PvP Icons",
                 type = "toggle",
-                order = 8,
-                width = 1.25
+                order = 11,
+                width = "full"
             },
             buff_collapse = {
                 name = "Buff Collapse Icon",
                 desc = "Show Buff Collapse Icon (Buffframe on Minimap)",
                 type = "toggle",
-                order = 9,
-                width = 1.25
+                order = 12,
+                width = "full"
             },
             buffsize = {
                 name = "Buff Icon Size",
@@ -96,8 +105,8 @@ function Module:OnEnable()
                 min = 15,
                 max = 50,
                 step = 1,
-                order = 10,
-                width = 1.25
+                order = 13,
+                width = "full"
             },
             debuffsize = {
                 name = "Debuff Icon Size",
@@ -106,8 +115,8 @@ function Module:OnEnable()
                 min = 15,
                 max = 50,
                 step = 1,
-                order = 11,
-                width = 1.25
+                order = 12,
+                width = "full"
             }
         }
     }

@@ -19,11 +19,6 @@ function Module:OnEnable()
                 disabled = true,
                 order = 1
             },
-            spacer1 = {
-                name = " ",
-                type = "description",
-                order = 2,
-            },
             welcome_message = {
                 name = "PhoUI Welcome Message",
                 desc = "Show Welcome Message in Chat",
@@ -31,23 +26,30 @@ function Module:OnEnable()
                 width = "full",
                 order = 3
             },
+            minimap_icon = {
+                name = "Hide Minimap Icon",
+                desc = "Hide PhoUI Addon Icon on Minimap",
+                type = "toggle",
+                width = "full",
+                order = 4
+            },
             spacer2 = {
                 name = "",
                 type = "header",
-                order = 4,
+                order = 5,
             },
             header_theme = {
                 name = "Theme Options",
                 type = "header",
                 dialogControl = "SFX-Header",
                 disabled = true,
-                order = 5
+                order = 6
             },
             theme = {
                 name = "Theme",
                 desc = "Set the Theme for UI",
                 type = "select",
-                order = 6,
+                order = 7,
                 width = "full",
                 values = {
                     ["dark"] = "Dark",
@@ -58,7 +60,7 @@ function Module:OnEnable()
                 name = "Font",
                 desc = "Set Global Font (Restart your Game after)",
                 type = "select",
-                order = 7,
+                order = 8,
                 width = "full",
                 values = PhoUI.LibSharedMedia:HashTable("font"),
                 dialogControl = "LSM30_Font",
@@ -68,7 +70,7 @@ function Module:OnEnable()
                 desc = "Disable Custom Font and set it to Default",
                 type = "toggle",
                 width = "full",
-                order = 8
+                order = 9
             }
         }
     }

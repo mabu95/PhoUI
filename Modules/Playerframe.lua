@@ -69,7 +69,7 @@ function Module:OnEnable()
 
             PhoUI:HideFrame(PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PlayerPortraitCornerIcon)
             PlayerFrame.healthbar.HealthBarMask:Hide()
-            PlayerFrame.healthbar.OverAbsorbGlow:Hide()
+            PhoUI:HideFrame(PlayerFrame.healthbar.OverAbsorbGlow)
             PlayerFrame.manabar.ManaBarMask:Hide()
             
             PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual.PrestigePortrait:ClearAllPoints()
@@ -100,6 +100,8 @@ function Module:OnEnable()
 
             local HealthBar = PlayerFrame.healthbar
             local ManaBar = PlayerFrame.manabar
+
+            HealthBar.OverAbsorbGlow:Hide()
 
             HealthBar:SetSize(134, 33)
             ManaBar:SetSize(134, 12)
@@ -252,10 +254,16 @@ function Module:OnEnable()
 
     PlayerFrame:HookScript("OnEvent", function(s, e)
         if e == "PLAYER_ENTERING_WORLD" then
-            s.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
-            s.healthbar.AnimatedLossBar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
-            s.healthbar.myHealPredictionBar:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
-            s.healthbar.otherHealPredictionBar:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")        end
+
+            --s.healthbar:GetStatusBarTexture():SetAtlas("UI-HUD-UnitFrame-Player-PortraitOn-Bar-Health-Status")
+            --s.healthbar:GetStatusBarTexture():SetHorizTile(true)
+
+            --s.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+            --s.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "test-hp")
+            --20/512, 210/512, 26/512, 93/512
+            --s.healthbar:GetStatusBarTexture():SetTexCoord( 375/512, 511/512, 40/512, 71/512 )
+            --.healthbar.AnimatedLossBar:SetAtlas(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+        end
 
         if not db.classbar then
             if PlayerFrame.classPowerBar then

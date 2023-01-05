@@ -5,4 +5,10 @@
     <Include file="Macros.lua"/>
     <Include file="Map.lua"/>
     <Include file="GameMenu.lua"/>
+    <Include file="Spellbook.lua"/>
+    <Include file="Achievment.lua"/>
+    <Include file="Talents.lua"/>
+    <Include file="Groupfinder.lua"/>
+    <Include file="GuildCommunity.lua"/>
+    <Include file="Inspect.lua"/>
 </Ui>

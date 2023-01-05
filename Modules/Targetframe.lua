@@ -15,7 +15,7 @@ function Module:OnEnable()
     end
 
     local function SetFrameTexture(Frame)
-        Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+        --Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
 
         if db.frame_style == "big" then
             PhoUI:SetAtlas(Frame.TargetFrameContainer.FrameTexture, "TargetFrame_Big", true)

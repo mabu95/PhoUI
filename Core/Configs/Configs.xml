@@ -3,4 +3,5 @@
     <Include file="General.lua"/>
     <Include file="Unitframes.lua"/>
     <Include file="Actionbar.lua"/>
+    <Include file="Castbar.lua"/>
 </Ui>

@@ -15,6 +15,8 @@ function Module:OnEnable()
             header = {
                 name = "Actionbar Options",
                 type = "header",
+                dialogControl = "SFX-Header",
+                disabled = true,
                 order = 1
             },
             enable = {
@@ -42,30 +44,12 @@ function Module:OnEnable()
                     ["full"] = "Full",
                 }
             },
-            menu_header = {
-                name = "Menu Options",
-                type = "header",
-                order = 5,
-            },
-            menu_enable = {
-                name = "PhoUI Menu",
-                desc = "Enable PhoUI Custom Menu",
-                type = "toggle",
-                width = 1.25,
-                order = 6
-            },
-            menu_hide = {
-                name = "Hide Menu",
-                desc = "Hide Menu",
-                type = "toggle",
-                width = 1.25,
-                order = 7
-            },
+
             short_keybinds = {
                 name = "Short Keybinds",
                 desc = "Use short Keybinds like SWU (Shift-Wheelup)",
                 type = "toggle",
-                order = 8,
+                order = 5,
                 width = "full"
             },
             hotkey = {
@@ -73,14 +57,14 @@ function Module:OnEnable()
                 desc = "Show Hotkeys on Actionbar",
                 type = "toggle",
                 width = 1.25,
-                order = 9
+                order = 6
             },
             macro = {
                 name = "Show Macros",
                 desc = "Show Macros on Actionbar",
                 type = "toggle",
                 width = 1.25,
-                order = 10
+                order = 7
             },
             text_size = {
                 name = "Textsize",
@@ -89,9 +73,35 @@ function Module:OnEnable()
                 min = 8,
                 max = 20,
                 step = 1,
-                order = 11,
+                order = 8,
                 width = "full"
-            }
+            },
+            spacer1 = {
+                name = "",
+                type = "header",
+                order = 9
+            },
+            menu_header = {
+                name = "Menu Options",
+                type = "header",
+                dialogControl = "SFX-Header",
+                disabled = true,
+                order = 10
+            },
+            menu_enable = {
+                name = "PhoUI Menu",
+                desc = "Enable PhoUI Custom Menu",
+                type = "toggle",
+                width = 1.25,
+                order = 11
+            },
+            menu_hide = {
+                name = "Hide Menu",
+                desc = "Hide Menu",
+                type = "toggle",
+                width = 1.25,
+                order = 12
+            },
         }
     }
 end

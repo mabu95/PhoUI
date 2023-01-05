@@ -12,6 +12,7 @@ function Module:OnEnable()
     local General = PhoUI:GetModule("Core.Configs.General")
     local Unitframes = PhoUI:GetModule("Core.Configs.Unitframes")
     local Actionbar = PhoUI:GetModule("Core.Configs.Actionbar")
+    local Castbar = PhoUI:GetModule("Core.Configs.Castbar")
 
     local Config = {
         get = function(info)
@@ -55,7 +56,8 @@ function Module:OnEnable()
             about = About.Config,
             general = General.Config,
             unitframes = Unitframes.Config,
-            actionbar = Actionbar.Config
+            actionbar = Actionbar.Config,
+            castbar = Castbar.Config
         }
     }
 
@@ -75,6 +77,15 @@ function Module:OnEnable()
     end)
     LibStub("AceConfigDialog-3.0"):SetDefaultSize("PhoUI", 550, 640)
 
-    local config = LibStub("AceConfigDialog-3.0")
-    
+    GameMenuFrame.Header:Hide()
+    local MUIButton = CreateFrame("Button", "MUIButton", GameMenuFrame, "UIPanelButtonTemplate")
+    MUIButton:SetSize(145, 20)
+    MUIButton:SetText("|cff8788EEPho|cffffffffUI|r")
+    MUIButton:ClearAllPoints()
+    MUIButton:SetPoint("TOP", 0, -11)
+    MUIButton:RegisterForClicks("AnyUp")
+    MUIButton:SetScript("OnClick", function()
+        LibStub('AceConfigDialog-3.0'):Open('PhoUI')
+        ToggleGameMenu()
+    end)
 end

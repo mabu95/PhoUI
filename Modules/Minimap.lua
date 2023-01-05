@@ -56,7 +56,9 @@ function Module:OnEnable()
 
         local buttons = LibDBIcon:GetButtonList()
           for i = 1, #buttons do
-            LibDBIcon:ShowOnEnter(buttons[i], true)
+            if buttons[i] ~= "PhoUI" then
+                LibDBIcon:ShowOnEnter(buttons[i], true)
+            end
         end
     
         TimeManagerClockButton:ClearAllPoints()

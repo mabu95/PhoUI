@@ -45,7 +45,7 @@ function Module:OnEnable()
                     Backdrop:SetFrameLevel(Frame:GetFrameLevel() - 1)
 
                     if Frame.Border then
-                        print("LOL")
+
                     end
                 end
             end

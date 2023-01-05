@@ -18,11 +18,15 @@ function PhoUI:OnInitialize()
 
     self.Options = {
         profile = {
+            minimap_icon = {
+                hide = false
+            },
             general = {
                 welcome_message = true,
                 font = "Gotham-Narrow-Medium",
                 disable_font = false,
-                theme = "blizzard"
+                theme = "blizzard",
+                minimap_icon = false
             },
             unitframes = {
                 frame_style = "big",
@@ -43,9 +47,15 @@ function PhoUI:OnInitialize()
                 menu_enable = true,
                 menu_hide = false,
                 short_keybinds = true,
-                text_size = 8,
+                text_size = 9,
                 hotkey = true,
                 macro = true
+            },
+            castbar = {
+                enable = true,
+                icon = true,
+                timer = true,
+                hide_anim = true
             }
         }
     }
@@ -58,7 +68,6 @@ function PhoUI:OnInitialize()
     LibSharedMedia:Register("statusbar", "Dragonflight", [[Interface\Addons\PhoUI\Media\Textures\Statusbar_Default]])
     LibSharedMedia:Register("statusbar", "Dragonflight White", [[Interface\Addons\PhoUI\Media\Textures\Statusbar_Default_White]])
 
-
     self.LibSharedMedia = LibSharedMedia
     self.db = LibStub("AceDB-3.0"):New("PHOUIDB", self.Options, true)
 
@@ -68,13 +77,15 @@ function PhoUI:OnInitialize()
     else
         self.DEFAULT_FONT = LibSharedMedia:Fetch("font", self.db.profile.general.font) 
     end
-    
 
     if self.THEME == "dark" then
         self.DARK_MODE = true
     else
         self.DARK_MODE = false
     end
+
+    -- Manipulate Minimap Icon State
+    self.db.profile.minimap_icon.hide = self.db.profile.general.minimap_icon
 
     --self.db:ResetDB()
 
@@ -138,4 +149,26 @@ function PhoUI:OnInitialize()
     if self.db.profile.general.welcome_message then
         print("|cff8788EE[Welcome to PhoUI]|cffffffff You are using Version: " .. GetAddOnMetadata(p, "Version") .. ". Open Settings with /pho")
     end
+end
+
+function PhoUI:OnEnable()
+    local LibDBIcon = LibStub("LibDBIcon-1.0")
+    local LibDataBroker = LibStub("LibDataBroker-1.1")
+
+    local MinimapIcon = LibDataBroker:NewDataObject("PhoUI", {
+        type = "launcher",
+		icon = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Logo",
+		OnTooltipShow = function(tooltip) tooltip:AddLine("PhoUI") end,
+		OnClick = function()
+			local config = LibStub("AceConfigDialog-3.0")
+
+			if config.OpenFrames["PhoUI"] then
+				config:Close("PhoUI")
+			else
+				config:Open("PhoUI")
+			end
+		end,
+    })
+    LibDBIcon:Register("PhoUI", MinimapIcon, self.db.profile.minimap_icon)
+
 end
