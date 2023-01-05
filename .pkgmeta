@@ -14,6 +14,8 @@ externals:
   Libs/CallbackHandler-1.0: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
   Libs/LibSharedMedia-3.0: https://repos.wowace.com/wow/libsharedmedia-3-0/trunk
   Libs/LibStub: https://repos.wowace.com/wow/libstub/trunk
+  Libs/LibDBIcon-1.0: https://repos.curseforge.com/wow/libdbicon-1-0/trunk libdbicon-1-0
+  Libs/libdatabroker-1-1: https://repos.curseforge.com/wow/libdatabroker-1-1 libdatabroker-1-1
 
 enable-nolib-creation: no
 
