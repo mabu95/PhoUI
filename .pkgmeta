@@ -20,7 +20,7 @@ externals:
 enable-nolib-creation: no
 
 manual-changelog:
-  filename: CHANGES.txt
+  filename: CHANGELOG.md
   markup-type: markdown
 
 ignore:
