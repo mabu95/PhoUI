@@ -13,6 +13,7 @@ function Module:OnEnable()
     local Unitframes = PhoUI:GetModule("Core.Configs.Unitframes")
     local Actionbar = PhoUI:GetModule("Core.Configs.Actionbar")
     local Castbar = PhoUI:GetModule("Core.Configs.Castbar")
+    local Miscellaneous = PhoUI:GetModule("Core.Configs.Miscellaneous")
 
     local Config = {
         get = function(info)
@@ -57,7 +58,8 @@ function Module:OnEnable()
             general = General.Config,
             unitframes = Unitframes.Config,
             actionbar = Actionbar.Config,
-            castbar = Castbar.Config
+            castbar = Castbar.Config,
+            miscellaneous = Miscellaneous.Config
         }
     }
 

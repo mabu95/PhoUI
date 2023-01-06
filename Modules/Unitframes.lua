@@ -9,6 +9,17 @@ local Module = PhoUI:NewModule("Unitframes")
 function Module:OnEnable()
     local db = PhoUI.db.profile.unitframes
 
+    local PhoUI_UnitReaction = {
+        [1] = {r = 236/255, g = 64/255, b = 36/255},
+        [2] = {r = 236/255, g = 64/255, b = 36/255},
+        [3] = {r = 253/255, g = 91/255, b = 0},
+        [4] = {r = 255/255, g = 228/255, b = 0},
+        [5] = {r = 0/255, g = 255/255, b = 0},
+        [6] = {r = 0/255, g = 255/255, b = 0},
+        [7] = {r = 0/255, g = 255/255, b = 0},
+        [8] = {r = 0/255, g = 255/255, b = 0},
+    }
+
     local function SetColoredStatusBars(Statusbar)
         Statusbar:SetStatusBarDesaturated(1)
         if UnitIsPlayer(Statusbar.unit) and UnitIsConnected(Statusbar.unit) and UnitClass(Statusbar.unit) then
@@ -37,12 +48,15 @@ function Module:OnEnable()
             if (not UnitPlayerControlled(Statusbar.unit) and UnitIsTapDenied(Statusbar.unit)) or (UnitIsPlayer(Statusbar.unit) and not UnitIsConnected(Statusbar.unit)) then
                 Statusbar:SetStatusBarColor(.5, .5, .5)
             else
-                local Reaction = FACTION_BAR_COLORS[UnitReaction(Statusbar.unit, "player")]
+                local Reaction = PhoUI_UnitReaction[UnitReaction(Statusbar.unit, "player")]
+                --print(UnitReaction(Statusbar.unit, "player"))
                 if Reaction then
                     Statusbar:SetStatusBarColor(Reaction.r, Reaction.g, Reaction.b);
-                else
-                    Statusbar:SetStatusBarColor(UnitSelectionColor(Statusbar.unit), true);
                 end
+                 --else
+                --    Statusbar:SetStatusBarColor(UnitSelectionColor(Statusbar.unit), 1);
+                      --Statusbar:SetStatusBarColor(UnitSelectionColor(Statusbar.unit), true);
+                --end
                 
             end
         end

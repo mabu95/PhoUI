@@ -56,6 +56,29 @@ function PhoUI:OnInitialize()
                 icon = true,
                 timer = true,
                 hide_anim = true
+            },
+            miscellaneous = {
+                auto_sell = true,
+                auto_repair = "default",
+                auto_invite = true,
+                auto_invite_message = "inv",
+                pvp_surrender = "gg",
+                pvp_tabbinder = true
+                --auto
+            },
+            editmode = {
+                durability = {
+                    point = "TOPRIGHT",
+                    x = 88,
+                    y = -144,
+                    scale = 1
+                },
+                vehicle = {
+                    point = "TOPRIGHT",
+                    x = 88,
+                    y = -144,
+                    scale = 1
+                }
             }
         }
     }

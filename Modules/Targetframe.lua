@@ -17,6 +17,13 @@ function Module:OnEnable()
     local function SetFrameTexture(Frame)
         --Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
 
+        --print(Frame.healthbar.HealthBarTexture)
+        --local tex = Frame.healthbar.HealthBarTexture
+        --tex:SetTexture(PhoUI.TEXTURE_PATH .. "Unitframes")
+        --tex:SetTexCoord( 375/512, 511/512, 40/512, 71/512 )
+        --Frame.healthbar:SetStatusBarTexture(tex)
+        --Frame.healthbar.HealthBarTexture:SetTexCoord( 375/512, 511/512, 40/512, 71/512 )
+
         if db.frame_style == "big" then
             PhoUI:SetAtlas(Frame.TargetFrameContainer.FrameTexture, "TargetFrame_Big", true)
             PhoUI:SetAtlas(Frame.TargetFrameContainer.Flash, "TargetFrame_Big_Flash", true)
@@ -31,7 +38,8 @@ function Module:OnEnable()
             if Frame.NameBackground == nil then
                 Frame.NameBackground = Frame:CreateTexture(nil, "BORDER", nil, -6)
                 Frame.NameBackground:SetDesaturated(1)
-                Frame.NameBackground:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+                Frame.NameBackground:SetAtlas("UI-HUD-UnitFrame-Player-PortraitOn-Bar-Health")
+                --Frame.NameBackground:SetTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default")
                 Frame.NameBackground:SetSize(133, 18)
                 Frame.NameBackground:SetPoint("TOPLEFT", 24, -26)
             end
