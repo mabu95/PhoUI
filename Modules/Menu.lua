@@ -10,6 +10,11 @@ function Module:OnEnable()
 
     local db = PhoUI.db.profile.actionbar
 
+    if db.menu_hide then
+        MicroButtonAndBagsBar:Hide()
+        MicroButtonAndBagsBar:SetAlpha(0)
+    end
+
     if not db.menu_enable then return end
 
     local BagButtons = {
@@ -253,10 +258,5 @@ function Module:OnEnable()
                 Button.Border:SetVertexColor(0.2, 0.2, 0.2)
             end
         end
-    end
-    
-    if db.menu_hide then
-        MicroButtonAndBagsBar:Hide()
-        MicroButtonAndBagsBar:SetAlpha(0)
     end
 end
