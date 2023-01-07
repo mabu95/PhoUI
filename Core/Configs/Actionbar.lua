@@ -63,7 +63,7 @@ function Module:OnEnable()
                 name = "Show Macros",
                 desc = "Show Macros on Actionbar",
                 type = "toggle",
-                width = 1.25,
+                width = "full",
                 order = 7
             },
             text_size = {
@@ -92,16 +92,23 @@ function Module:OnEnable()
                 name = "PhoUI Menu",
                 desc = "Enable PhoUI Custom Menu",
                 type = "toggle",
-                width = 1.25,
+                width = "full",
                 order = 11
             },
             menu_hide = {
                 name = "Hide Menu",
                 desc = "Hide Menu",
                 type = "toggle",
-                width = 1.25,
+                width = "full",
                 order = 12
             },
+            statusbar = {
+                name = "Hide Statusbar",
+                desc = "Hide Statusbar and XP/Honor Bar",
+                type = "toggle",
+                width = "full",
+                order = 13
+            }
         }
     }
 end

@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="Actionbar.lua"/>
     <Include file="Calendar.lua"/>
     <Include file="Character.lua"/>
     <Include file="Bags.lua"/>

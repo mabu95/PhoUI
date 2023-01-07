@@ -7,6 +7,17 @@ local p, h, o, u, i = ...
 local Module = PhoUI:NewModule("Statusbar")
 
 function Module:OnEnable()
+    local db = PhoUI.db.profile.actionbar
+
+    if db.statusbar then
+        StatusTrackingBarManager:HookScript("OnEvent", function(s, e, ...)
+            StatusTrackingBarManager:Hide()
+        end)
+        return
+    end
+
+    if not db.enable then return end
+
     local function AddBarBorder(Frame)
         if Frame.Border == nil then
             Frame.Border = CreateFrame("Frame", "Border", Frame)
@@ -204,7 +215,7 @@ function Module:OnEnable()
             end
         end
 
-        if not UnitAffectingCombat("player") then
+        if not UnitAffectingCombat("player") and not db.statusbar then
             UpdatePosition(SHOWN_BARS)
         end
     end)

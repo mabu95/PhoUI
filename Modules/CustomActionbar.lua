@@ -11,6 +11,7 @@ function Custom:OnEnable()
     local Height = 50
     local PagerPos = 0
     
+    if not db.enable then return end
     local Width = db.style == "full" and 785 or 540
 
     PhoUI:HideFrame(MainMenuBar.EndCaps)
@@ -52,7 +53,11 @@ function Custom:OnEnable()
     local function CreateBorderArt()
         local Actionbar = CreateFrame("Frame", p .. "Actionbar", UIParent)
         Actionbar:SetSize(Width, Height)
-        Actionbar:SetPoint("CENTER", UIParent, "BOTTOM", 0, 50)
+        if db.statusbar then
+            Actionbar:SetPoint("CENTER", UIParent, "BOTTOM", 0, 20)
+        else
+            Actionbar:SetPoint("CENTER", UIParent, "BOTTOM", 0, 50)
+        end
         --Actionbar:SetPoint("CENTER", UIParent, "BOTTOM", 0, 200)
         Actionbar:SetFrameLevel(0)
 

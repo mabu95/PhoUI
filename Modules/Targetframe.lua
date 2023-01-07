@@ -168,8 +168,8 @@ function Module:OnEnable()
 
     local function TargetFrameToT_Update()
         if db.frame_style == "blizzard" then
-            FocusFrameToT.FrameTexture:SetDesaturated(1)
-            FocusFrameToT.FrameTexture:SetVertexColor(0.2, 0.2, 0.2)
+            TargetFrameToT.FrameTexture:SetDesaturated(1)
+            TargetFrameToT.FrameTexture:SetVertexColor(0.2, 0.2, 0.2)
             return
         end
 
@@ -302,6 +302,7 @@ function Module:OnEnable()
     hooksecurefunc(FocusFrame, "Update", UpdateFrame)
     hooksecurefunc(FocusFrame, "CheckClassification", CheckClassification)
     hooksecurefunc(FocusFrameToT, "Update", FocusFrameToT_Update)
+
     if db.frame_style ~= "blizzard" then
         hooksecurefunc(FocusFrame, "CheckLevel", FocusFrame_CheckLevel)
     end

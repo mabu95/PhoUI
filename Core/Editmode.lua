@@ -9,8 +9,10 @@ local LibEditMode = LibStub("LibEditMode")
 
 function Module:OnEnable()
     local db = PhoUI.db.profile.editmode
+    local CustomActionbar = PhoUI.db.profile.actionbar.enable
     local DurabilityFrame = DurabilityFrame
     local VehicleSeatIndicator = VehicleSeatIndicator
+    local StatusTrackingBarManager = StatusTrackingBarManager
 
     local DefaultPos = {
         [VehicleSeatIndicator] = {
@@ -22,6 +24,11 @@ function Module:OnEnable()
             point = db.durability.point,
             x = db.durability.x,
             y = db.durability.y
+        },
+        [StatusTrackingBarManager] = {
+            point = "BOTTOM",
+            x = 0,
+            y = 0
         }
     }
 
@@ -33,6 +40,11 @@ function Module:OnEnable()
     DurabilityFrame:ClearAllPoints()
     DurabilityFrame:SetPoint(db.durability.point, db.durability.x, db.durability.y)
 
+    if not CustomActionbar then
+        StatusTrackingBarManager:ClearAllPoints()
+        StatusTrackingBarManager:SetPoint(db.statustracking.point, db.statustracking.x, db.statustracking.y)
+    end
+
     local function VehicleSeatIndicatorPos(Frame, LayoutName, Point, X, Y)
         db.vehicle.point = Point
         db.vehicle.x = X
@@ -43,6 +55,12 @@ function Module:OnEnable()
         db.durability.point = Point
         db.durability.x = X
         db.durability.y = Y
+    end
+
+    local function StatusTrackingBarManagerPos(Frame, LayoutName, Point, X, Y)
+        db.statustracking.point = Point
+        db.statustracking.x = X
+        db.statustracking.y = Y
     end
 
     hooksecurefunc(UIParentRightManagedFrameContainer, "UpdateFrame", function()
@@ -57,7 +75,10 @@ function Module:OnEnable()
 
     LibEditMode:AddFrame(VehicleSeatIndicator, VehicleSeatIndicatorPos, DefaultPos.VehicleSeatIndicator)
     LibEditMode:AddFrame(DurabilityFrame, DurabilityFramePos, DefaultPos.DurabilityFrame)
-
+    
+    if not CustomActionbar then
+        LibEditMode:AddFrame(StatusTrackingBarManager, StatusTrackingBarManagerPos, DefaultPos.StatusTrackingBarManager)
+    end
     --
     --LibEditMode:RegisterCallback("layout", function(layoutName)
     --    --print('callback', layoutName)

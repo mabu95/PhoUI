@@ -49,7 +49,8 @@ function PhoUI:OnInitialize()
                 short_keybinds = true,
                 text_size = 9,
                 hotkey = true,
-                macro = true
+                macro = true,
+                statusbar = true
             },
             castbar = {
                 enable = true,
@@ -78,6 +79,11 @@ function PhoUI:OnInitialize()
                     x = 88,
                     y = -144,
                     scale = 1
+                },
+                statustracking = {
+                    point = "BOTTOM",
+                    x = 0,
+                    y = 0,
                 }
             }
         }

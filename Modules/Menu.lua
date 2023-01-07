@@ -10,6 +10,8 @@ function Module:OnEnable()
 
     local db = PhoUI.db.profile.actionbar
 
+    if not db.menu_enable then return end
+
     local BagButtons = {
         CharacterBag0Slot,
         CharacterBag1Slot,
