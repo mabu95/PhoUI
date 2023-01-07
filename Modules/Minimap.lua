@@ -8,8 +8,6 @@ local Module = PhoUI:NewModule("Minimap")
 local LibDBIcon = LibStub("LibDBIcon-1.0")
 
 function Module:OnEnable()
-    print("NOT LOADED")
-    
     MinimapCluster:SetSize(230, 230)
 
     MinimapCompassTexture:SetTexture(PhoUI.TEXTURE_PATH .. "Minimap")
