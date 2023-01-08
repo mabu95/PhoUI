@@ -96,6 +96,12 @@ function Module:OnEnable()
                 Castbar.Text:SetFont(STANDARD_TEXT_FONT, 9, "OUTLINE")
             end
 
+            if Castbar.BorderShield ~= nil then
+                Castbar.BorderShield:Show()
+                Castbar.BorderShield:ClearAllPoints()
+                Castbar.BorderShield:SetPoint("CENTER", Castbar.Icon, "CENTER", 0, -3)
+            end
+
             if db.icon then
                 if Castbar.Icon ~= nil then      
                     StyleIcon(Castbar)

@@ -14,15 +14,16 @@
     <Include file="Libs\LibDropDown\embed.xml"/>
     <Include file="Libs\LibEditMode\embed.xml"/>
     <Include file="Libs\LibEditModeOverride\LibEditModeOverride.xml"/>
+    <Include file="Libs\TaintLess.xml"/>
 
     <Include file="Core/PhoUI.lua"/>
     <Include file="Core/AtlasList.lua"/>
     <Include file="Core/Configs/Configs.xml"/>
     <Include file="Core/Theme.lua"/>
     <Include file="Core/Editmode.lua"/>
-    <Include file="Modules/Unitframes.lua"/>
     <Include file="Modules/Playerframe.lua"/>
     <Include file="Modules/Targetframe.lua"/>
+    <Include file="Modules/Unitframes.lua"/>
     <Include file="Modules/BuffsDebuffs.lua"/>
     <Include file="Modules/PetFrame.lua"/>
     <Include file="Modules/Tooltip.lua"/>
