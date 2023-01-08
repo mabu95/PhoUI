@@ -11,8 +11,11 @@ function Actionbar:OnEnable()
     local Dominos, Bartender4 = IsAddOnLoaded("Dominos"), IsAddOnLoaded("Bartender4")
     if Dominos or Bartender4 then return end
 
+    if not db.enable and db.enable_buttons then
+        return
+    end
+
     function self:Init()
-       
         if db.enable then
             MultiBarBottomRight:SetFrameLevel(2)
             MainMenuBar:ClearAllPoints()
@@ -43,7 +46,7 @@ function Actionbar:OnEnable()
                         local i = i - 6
                         PlacerholderButtonRight = _G[p .. "PlaceholderButtonRight" .. i]
                         MultiBarBottomRightButton:ClearAllPoints()
-                        MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 45)
+                        MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 43)
                     end
                 end
             end
@@ -111,6 +114,17 @@ function Actionbar:OnEnable()
             _G[Button:GetName() .. "Cooldown"]:ClearAllPoints()
             _G[Button:GetName() .. "Cooldown"]:SetPoint("TOPLEFT", Button, "TOPLEFT", -1, -1)
             _G[Button:GetName() .. "Cooldown"]:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
+
+            _G[Button:GetName()].NewActionTexture:SetTexture(PhoUI.TEXTURE_PATH .. "Button_Pushed")
+            _G[Button:GetName()].NewActionTexture:ClearAllPoints()
+            _G[Button:GetName()].NewActionTexture:SetPoint("TOPLEFT", Button, "TOPLEFT", 0, 0)
+            _G[Button:GetName()].NewActionTexture:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
+
+            --_G[Button:GetName()].SpellHighlightTexture:SetTexture(PhoUI.TEXTURE_PATH .. "Button_Pushed")
+            _G[Button:GetName()].SpellHighlightTexture:ClearAllPoints()
+            _G[Button:GetName()].SpellHighlightTexture:SetPoint("TOPLEFT", Button, "TOPLEFT", 0, 0)
+            _G[Button:GetName()].SpellHighlightTexture:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
+
 
             Button.CheckedTexture:SetAllPoints()
             Button:GetPushedTexture():SetAllPoints()

@@ -42,6 +42,7 @@ function PhoUI:OnInitialize()
             },
             actionbar = {
                 enable = true,
+                enable_buttons = true,
                 gryphons = true,
                 style = "full",
                 menu_enable = true,

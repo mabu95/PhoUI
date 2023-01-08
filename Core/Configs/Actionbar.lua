@@ -26,12 +26,19 @@ function Module:OnEnable()
                 width = 1.25,
                 order = 2
             },
+            enable_buttons = {
+                name = "PhoUI Button Border",
+                desc = "Enable PhoUI Actionbar Button Borders",
+                type = "toggle",
+                width = "full",
+                order = 3,
+            },
             gryphons = {
                 name = "Show Gryphons",
                 desc = "Show Gryphons on Actionbar",
                 type = "toggle",
                 width = 1.25,
-                order = 3
+                order = 4
             },
             style = {
                 name = "Style",
@@ -49,7 +56,7 @@ function Module:OnEnable()
                 name = "Short Keybinds",
                 desc = "Use short Keybinds like SWU (Shift-Wheelup)",
                 type = "toggle",
-                order = 5,
+                order = 6,
                 width = "full"
             },
             hotkey = {
@@ -57,14 +64,14 @@ function Module:OnEnable()
                 desc = "Show Hotkeys on Actionbar",
                 type = "toggle",
                 width = 1.25,
-                order = 6
+                order = 7
             },
             macro = {
                 name = "Show Macros",
                 desc = "Show Macros on Actionbar",
                 type = "toggle",
                 width = "full",
-                order = 7
+                order = 8
             },
             text_size = {
                 name = "Textsize",
@@ -73,41 +80,41 @@ function Module:OnEnable()
                 min = 8,
                 max = 20,
                 step = 1,
-                order = 8,
+                order = 9,
                 width = "full"
             },
             spacer1 = {
                 name = "",
                 type = "header",
-                order = 9
+                order = 10
             },
             menu_header = {
                 name = "Menu Options",
                 type = "header",
                 dialogControl = "SFX-Header",
                 disabled = true,
-                order = 10
+                order = 11
             },
             menu_enable = {
                 name = "PhoUI Menu",
                 desc = "Enable PhoUI Custom Menu",
                 type = "toggle",
                 width = "full",
-                order = 11
+                order = 12
             },
             menu_hide = {
                 name = "Hide Menu",
                 desc = "Hide Menu",
                 type = "toggle",
                 width = "full",
-                order = 12
+                order = 13
             },
             statusbar = {
                 name = "Hide Statusbar",
                 desc = "Hide Statusbar and XP/Honor Bar",
                 type = "toggle",
                 width = "full",
-                order = 13
+                order = 14
             }
         }
     }
