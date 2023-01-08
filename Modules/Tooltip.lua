@@ -7,8 +7,9 @@ local p, h, o, u, i = ...
 local Module = PhoUI:NewModule("Tooltip")
 
 function Module:OnEnable()
-    local PT = CreateFrame("GameTooltip", "PhoUIToolTip", UIParent)
+    --local PT = CreateFrame("GameTooltip", "PhoUIToolTip", UIParent)
     local CB = GetCVar("colorblindMode")
+    
 
     o = {}
 
@@ -127,14 +128,16 @@ function Module:OnEnable()
         GameTooltip:AddLine("Target: " .. o.Target)
     end
 
-    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, Update_TooltipDataType)
 
-    hooksecurefunc("SharedTooltip_SetBackdropStyle", function(self)
+    local function PhoUI_DARK_MODE_Tooltip(self)
+
+        if not PhoUI.DARK_MODE then return end
+
         if not self.SetBackdrop then
             Mixin(self, BackdropTemplateMixin)
         end
-        
-        local backdrop = {
+
+        self:SetBackdrop({
             bgFile = "Interface\\Buttons\\WHITE8x8",
             bgColor = {0.03, 0.03, 0.03, 0.9},
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -145,14 +148,42 @@ function Module:OnEnable()
             tileSize = 16,
             edgeSize = 16,
             insets = {left=3, right=3, top=3, bottom=3}
-          }      
-          self:SetBackdrop(backdrop)
-          
-          self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0)
-          self:SetBackdropColor(0, 0, 0, .1)
+        })
 
-        if PhoUI.DARK_MODE then
-            self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
-        end
+        self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0.9)
+        self:SetBackdropColor(0, 0, 0, .1)
+
+        self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
+    end
+
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, Update_TooltipDataType)
+
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
+        if not PhoUI.DARK_MODE then return end
+        self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0.9)
+        self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
     end)
+
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Macro, function(self)
+        if not PhoUI.DARK_MODE then return end
+        self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0.9)
+        self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
+    end)
+
+    TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, function(self)
+        if not PhoUI.DARK_MODE then return end
+        self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0.9)
+        self.NineSlice:SetBorderColor(0.2, 0.2, 0.2)
+    end)
+
+    hooksecurefunc("SharedTooltip_SetBackdropStyle", PhoUI_DARK_MODE_Tooltip)
+
+    local Tooltips = {
+        GameTooltip, ShoppingTooltip1, ShoppingTooltip2, ItemRefTooltip, ItemRefShoppingTooltip1,
+        ItemRefShoppingTooltip2, WorldMapTooltip,
+        WorldMapCompareTooltip1, WorldMapCompareTooltip2
+    }
+    for _, Tooltip in next, Tooltips do
+        PhoUI_DARK_MODE_Tooltip(Tooltip)
+    end
 end

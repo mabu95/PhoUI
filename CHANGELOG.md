@@ -6,3 +6,8 @@
 - Fixed Lib Errors
 - Fixed Shield Icon on Uninterruptible Spells
 - Fixed Hide Menu
+- Fixed some Actionbar Bugs
+- Added Option to Hide PhoUI Border on non PhoUI-Styled Actionbar
+- Levelframe on Rareborder now Silver
+- Changed Position of Levelframe (Border-Centered on Unitframes)
+- Changed Tooltip Dark Mode Settings
