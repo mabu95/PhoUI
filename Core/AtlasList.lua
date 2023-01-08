@@ -88,6 +88,11 @@ _G[p].AtlasList = {
         Size = {22, 22},
         TexCoord = {61/512, 91/512, 347/512, 377/512}
     },
+    Level_Rare = {
+        Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Unitframes",
+        Size = {22, 22},
+        TexCoord = {25/512, 57/512, 391/512, 423/512}
+    },
     -- Buttons
     Button_Border = {
         Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Pho_Buttons",

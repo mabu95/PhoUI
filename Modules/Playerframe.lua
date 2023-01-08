@@ -63,7 +63,8 @@ function Module:OnEnable()
             PlayerFrame.PlayerFrameContainer.PlayerPortrait:SetDrawLayer("BACKGROUND")
             PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetDrawLayer("BACKGROUND")
             PlayerFrame.PlayerFrameContainer.PlayerPortraitMask:SetSize(58, 58)
-            PhoUI:CreateLevelFrame("PlayerLevelFrame", PlayerFrame, PlayerFrame:GetFrameLevel() + 10, {"BOTTOMLEFT", 22, 16})
+            PhoUI:CreateLevelFrame("PlayerLevelFrame", PlayerFrame, PlayerFrame:GetFrameLevel() + 10, {"BOTTOMLEFT", 20, 16})
+
             PlayerFrame.PlayerFrameContainer:SetFrameLevel(4)
             PlayerFrame.PlayerFrameContent.PlayerFrameContentContextual:SetFrameLevel(5)
 
@@ -167,6 +168,9 @@ function Module:OnEnable()
 
         if db.chain ~= "none" then
             AddFrameBorder(db.chain)
+            if db.chain == 2 then
+                PhoUI:SetAtlas(PlayerLevelFrame.Border, "Level_Rare", true)
+            end
         end
 
         if not db.pvpicon then

@@ -10,8 +10,8 @@ function Module:OnEnable()
     local db = PhoUI.db.profile.unitframes
 
     if db.frame_style ~= "blizzard" then
-        PhoUI:CreateLevelFrame("TargetLevelFrame", TargetFrame, TargetFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -22, 16})
-        PhoUI:CreateLevelFrame("FocusLevelFrame", FocusFrame, FocusFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -22, 16})
+        PhoUI:CreateLevelFrame("TargetLevelFrame", TargetFrame, TargetFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -20, 16})
+        PhoUI:CreateLevelFrame("FocusLevelFrame", FocusFrame, FocusFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -20, 16})
     end
 
     local function SetFrameTexture(Frame)
@@ -102,6 +102,21 @@ function Module:OnEnable()
             Frame.TargetFrameContent.TargetFrameContentMain.ReputationColor:Hide()
             Frame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(Frame.TargetFrameContainer:GetFrameLevel() - 2)
             SetFrameTexture(Frame)
+
+            local Classification = UnitClassification(Frame.unit);
+            if Classification == "rare" then
+                if Frame:GetName() == "TargetFrame" then
+                    PhoUI:SetAtlas(TargetLevelFrame.Border, "Level_Rare", true)
+                elseif Frame:GetName() == "FocusFrame" then
+                    PhoUI:SetAtlas(TargetLevelFrame.Border, "Level_Rare", true)
+                end
+            else
+                if Frame:GetName() == "TargetFrame" then
+                    PhoUI:SetAtlas(TargetLevelFrame.Border, "Level", true)
+                elseif Frame:GetName() == "FocusFrame" then
+                    PhoUI:SetAtlas(FocusLevelFrame.Border, "Level", true)
+                end
+            end
         end
 
         if PhoUI.DARK_MODE and Frame.TargetFrameContainer.BossPortraitFrameTexture ~= nil then
