@@ -97,5 +97,29 @@ _G[p].AtlasList = {
     Button_Border = {
         Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Pho_Buttons",
         TexCoord = {0/256, 45/256, 0/256, 45/256}
+    },
+
+    -- Minimap
+    Minimap_Round = {
+        Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Minimap",
+        TexCoord = { 18/512, 245/512, 13/512, 240/512 }
+    },
+    Minimap_Square = {
+        Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Minimap",
+        TexCoord = { 268/512, 495/512, 13/512, 240/512 }
+    },
+
+    Minimap_Clock = {
+        Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Minimap",
+        TexCoord = { 18/512, 118/512, 253/512, 298/512 }
+    },
+    Minimap_Title = {
+        Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Minimap",
+        TexCoord = { 10/512, 110/512, 558/512, 603/512 }
+    },
+    Minimap_Header = {
+        Texture = "Interface\\AddOns\\PhoUI\\Media\\Textures\\Minimap",
+        Size = {400, 42},
+        TexCoord = { 551/512, 951/512, 593/512, 635/512 }
     }
 }
