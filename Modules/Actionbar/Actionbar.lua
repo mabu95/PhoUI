@@ -68,6 +68,15 @@ function Module:OnEnable()
             ButtonRight:ClearAllPoints()
             ButtonRight:SetPoint("TOPLEFT", MultiBarRight, "TOPLEFT", 0, -PosX)
         end
+
+        --print(MultiBarBottomLeftButton1:GetWidth())
+        --MultiBarBottomLeft:SetWidth(MultiBarBottomLeftButton1:GetWidth())
+
+        --LibEditModeOverride:LoadLayouts()
+        MultiBarRight:SetClampedToScreen(false)
+        MultiBarLeft:SetClampedToScreen(false)
+        --LibEditModeOverride:ReanchorFrame(MultiBarRight, "RIGHT", UIParent, "RIGHT", 0, -70)
+        --LibEditModeOverride:ApplyChanges()
     end
 
     local function UpdateButton(Button, SetSize)
@@ -92,6 +101,8 @@ function Module:OnEnable()
             Button:SetScale(1)
             Button:SetSize(Width, Height)
         end
+
+        --print(Button:GetWidth())
 
         if DB.enable or DB.custom_buttons then
             PhoUI:SetButtonAtlas(Button, "NormalTexture", "Button_Border")
@@ -158,10 +169,6 @@ function Module:OnEnable()
     end
 
     local function Init()
-        if DB.enable then
-            MoveBars()
-        end
-
         -- Style Buttons
         for i = 1, 12 do
             UpdateButton(_G["ActionButton" .. i], true);
@@ -177,6 +184,10 @@ function Module:OnEnable()
                 UpdateButton(_G["StanceButton" .. i]);
                 UpdateButton(_G["PetActionButton" .. i]);
             end
+        end
+
+        if DB.enable then
+            MoveBars()
         end
     end
 

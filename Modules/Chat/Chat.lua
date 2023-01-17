@@ -196,9 +196,9 @@ function Module_ChatLinks:OnEnable()
         end)
     end
 
-    local SetHyperLink = _G.ItemRefTooltip.SetHyperlink
+    local SetHyperlink = _G.ItemRefTooltip.SetHyperlink
     function _G.ItemRefTooltip:SetHyperlink(Link, ...)
-        if Link and strsub(Link, 1, 3) == "url" then
+        if Link and (strsub(Link, 1, 3) == "url") then
             local EditBox = ChatEdit_ChooseBoxForSend()
             ChatEdit_ActivateChat(EditBox)
             EditBox:Insert(string.sub(Link, 5))

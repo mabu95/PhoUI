@@ -4,6 +4,16 @@ local Module = PhoUI:NewModule("Actionbar.Custom")
 function Module:OnEnable()
     local DB = PhoUI.db.profile.actionbar
     
+    QueueStatusButton:SetParent(UIParent)
+    QueueStatusButton:SetFrameLevel(1)
+    QueueStatusButton:SetScale(0.8, 0.8)
+    QueueStatusButton:ClearAllPoints()
+    QueueStatusButton:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", 0, 0)
+
+    hooksecurefunc("QueueStatusDropDown_Show", function(button, relativeTo)
+          DropDownList1:ClearAllPoints()
+          DropDownList1:SetPoint("BOTTOMLEFT", QueueStatusButton, "BOTTOMLEFT", -70, -60)
+    end)
 
     local Width = 785
     local Height = 50
@@ -93,7 +103,6 @@ function Module:OnEnable()
 
     local function CreateGryphons()
         local Style = DB.gryphons
-        if Style == "Hide" then return end
 
         local LeftGryphon, RightGryphon
 
@@ -129,6 +138,10 @@ function Module:OnEnable()
             if PhoUI.DARK_MODE then
                 Frame.Gryphon:SetDesaturated(1)
                 Frame.Gryphon:SetVertexColor(0.4, 0.4, 0.4)
+            end
+
+            if Style == "Hide" then
+                Frame:Hide()
             end
         end
     end

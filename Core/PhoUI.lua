@@ -55,7 +55,7 @@ function PhoUI:OnInitialize()
             actionbar = {
                 enable = true,
                 style = "full",
-                gryphons = "faction",
+                gryphons = "Faction",
                 custom_buttons = true,
                 hotkey = true,
                 macro = true,
