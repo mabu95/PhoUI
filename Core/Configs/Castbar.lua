@@ -10,7 +10,7 @@ function Module:OnEnable()
     self.Config = {
         name = "Castbar",
         type = "group",
-        order = 5,
+        order = 4,
         args = {
             header = {
                 name = "Castbar Options",

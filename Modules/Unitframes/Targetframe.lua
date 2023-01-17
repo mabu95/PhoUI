@@ -1,17 +1,12 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
-local Module = PhoUI:NewModule("Targetframe")
+local P, H, O, U, I = ...
+local Module = PhoUI:NewModule("Unitframes.Targetframe")
 
 function Module:OnEnable()
     local db = PhoUI.db.profile.unitframes
 
     if db.frame_style ~= "blizzard" then
-        PhoUI:CreateLevelFrame("TargetLevelFrame", TargetFrame, TargetFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -20, 16})
-        PhoUI:CreateLevelFrame("FocusLevelFrame", FocusFrame, FocusFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -20, 16})
+        PhoUI:CreateLevelFrame("TargetLevelFrame", TargetFrame.TargetFrameContent.TargetFrameContentContextual, TargetFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -20, 16})
+        PhoUI:CreateLevelFrame("FocusLevelFrame", FocusFrame.TargetFrameContent.TargetFrameContentContextual, FocusFrame:GetFrameLevel() + 10, {"BOTTOMRIGHT", -20, 16})
     end
 
     local function SetFrameTexture(Frame)
@@ -23,6 +18,11 @@ function Module:OnEnable()
         --tex:SetTexCoord( 375/512, 511/512, 40/512, 71/512 )
         --Frame.healthbar:SetStatusBarTexture(tex)
         --Frame.healthbar.HealthBarTexture:SetTexCoord( 375/512, 511/512, 40/512, 71/512 )
+
+        -- Update Frame Levels
+        Frame.TargetFrameContainer.FrameTexture:SetDrawLayer("ARTWORK")
+        Frame.TargetFrameContainer:SetFrameStrata("MEDIUM")
+        Frame.TargetFrameContent.TargetFrameContentContextual:SetFrameStrata("MEDIUM")
 
         if db.frame_style == "big" then
             PhoUI:SetAtlas(Frame.TargetFrameContainer.FrameTexture, "TargetFrame_Big", true)
@@ -62,45 +62,48 @@ function Module:OnEnable()
         Frame.healthbar.OverAbsorbGlow:Hide()
 
         --Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
-        --Frame.healthbar:GetStatusBarTexture():SetAtlas("UI-HUD-UnitFrame-Player-PortraitOff-Bar-Health-Status")
 
         if db.frame_style == "big" then
             Frame.healthbar:SetSize(134, 33)
             Frame.healthbar:ClearAllPoints()
             Frame.healthbar:SetPoint("TOPRIGHT", -74, -27)
-            Frame.healthbar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.healthbar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.healthbar.LeftText:SetPoint("LEFT", Frame.healthbar, 4, 0)
-            Frame.healthbar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.healthbar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.healthbar.RightText:SetPoint("RIGHT", Frame.healthbar, -15, 0)
 
             Frame.manabar:SetSize(134, 12)
             Frame.manabar:ClearAllPoints()
-            Frame.manabar:SetPoint("TOPRIGHT", -75, -60)
-            Frame.manabar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.manabar:SetPoint("TOPRIGHT", -73, -60)
+            Frame.manabar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.manabar.LeftText:SetPoint("LEFT", Frame.manabar, 5, 0)
-            Frame.manabar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.manabar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
         else
             Frame.healthbar:SetSize(134, 12)
             Frame.healthbar:ClearAllPoints()
             Frame.healthbar:SetPoint("TOPRIGHT", -74, -46)
-            Frame.healthbar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.healthbar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.healthbar.LeftText:SetPoint("LEFT", Frame.healthbar, 4, 0)
-            Frame.healthbar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.healthbar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.healthbar.RightText:SetPoint("RIGHT", Frame.healthbar, -15, 0)
 
             Frame.manabar:SetSize(134, 12)
             Frame.manabar:ClearAllPoints()
             Frame.manabar:SetPoint("TOPRIGHT", -75, -60)
-            Frame.manabar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.manabar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.manabar.LeftText:SetPoint("LEFT", Frame.manabar, 5, 0)
-            Frame.manabar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Frame.manabar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
         end
     end
 
     local function CheckClassification(Frame)
         if db.frame_style ~= "blizzard" then
             Frame.TargetFrameContent.TargetFrameContentMain.ReputationColor:Hide()
-            Frame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(Frame.TargetFrameContainer:GetFrameLevel() - 2)
+            --Frame.TargetFrameContent.TargetFrameContentMain:SetFrameLevel(Frame.TargetFrameContainer:GetFrameLevel() - 2)
+            
+            --Frame.TargetFrameContainer:SetFrameLevel(4)
+            --Frame.TargetFrameContent.TargetFrameContentContextual:SetFrameLevel(5)
+
             SetFrameTexture(Frame)
 
             local Classification = UnitClassification(Frame.unit);
@@ -140,7 +143,7 @@ function Module:OnEnable()
             local Name = Frame.TargetFrameContent.TargetFrameContentMain.Name
             Name:ClearAllPoints()
             Name:SetJustifyH("CENTER")
-            Name:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            Name:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
 
             if db.frame_style == "big" then
                 Name:SetPoint("TOPRIGHT", Frame, "TOPRIGHT", -97, -13)
@@ -225,7 +228,7 @@ function Module:OnEnable()
             Name:ClearAllPoints()
             Name:SetPoint("TOPLEFT", 42, -10)
             Name:SetJustifyH("CENTER")
-            Name:SetFont(PhoUI.DEFAULT_FONT, 9, "OUTLINE")
+            Name:SetFont(STANDARD_TEXT_FONT, 9, "OUTLINE")
     
             if TargetFrameToT.NameBG == nil then
                 TargetFrameToT.NameBG = TargetFrameToT:CreateTexture(nil, "BACKGROUND")
@@ -245,7 +248,7 @@ function Module:OnEnable()
             return
         end
 
-        if TargetFrameToT.PhoUI == nil then
+        if FocusFrameToT.PhoUI == nil then
             local Healthbar = FocusFrameToT.HealthBar
             local Manabar = FocusFrameToT.ManaBar
             local Name = FocusFrameToT.Name
@@ -282,7 +285,7 @@ function Module:OnEnable()
             Name:ClearAllPoints()
             Name:SetPoint("TOPLEFT", 42, -10)
             Name:SetJustifyH("CENTER")
-            Name:SetFont(PhoUI.DEFAULT_FONT, 9, "OUTLINE")
+            Name:SetFont(STANDARD_TEXT_FONT, 9, "OUTLINE")
 
             if FocusFrameToT.NameBG == nil then
                 FocusFrameToT.NameBG = FocusFrameToT:CreateTexture(nil, "BACKGROUND")
@@ -321,4 +324,16 @@ function Module:OnEnable()
     if db.frame_style ~= "blizzard" then
         hooksecurefunc(FocusFrame, "CheckLevel", FocusFrame_CheckLevel)
     end
+
+    hooksecurefunc("TargetFrame_UpdateBuffAnchor", function(_, Buff)
+        Buff:SetSize(db.buffsize, db.buffsize)
+    end)
+
+    hooksecurefunc("TargetFrame_UpdateDebuffAnchor", function(_, Debuff)
+        Debuff:SetSize(db.debuffsize, db.debuffsize)
+        if Debuff.Border ~= nil then
+            Debuff.Border:SetPoint("TOPLEFT", -1, 0)
+            Debuff.Border:SetPoint("BOTTOMRIGHT", 0, 0)
+        end
+    end)
 end

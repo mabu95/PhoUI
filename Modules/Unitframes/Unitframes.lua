@@ -1,14 +1,8 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
+local P, H, O, U, I = ...
 local Module = PhoUI:NewModule("Unitframes")
 
 function Module:OnEnable()
-    local db = PhoUI.db.profile.unitframes
-
+    local DB = PhoUI.db.profile.unitframes
     local PhoUI_UnitReaction = {
         [1] = {r = 236/255, g = 64/255, b = 36/255},
         [2] = {r = 236/255, g = 64/255, b = 36/255},
@@ -20,7 +14,7 @@ function Module:OnEnable()
         [8] = {r = 0/255, g = 255/255, b = 0},
     }
 
-    local function SetColoredStatusBars(Statusbar)
+    function SetColoredStatusBars(Statusbar)
         Statusbar:SetStatusBarDesaturated(1)
         if UnitIsPlayer(Statusbar.unit) and UnitIsConnected(Statusbar.unit) and UnitClass(Statusbar.unit) then
             _, Class = UnitClass(Statusbar.unit)
@@ -62,11 +56,82 @@ function Module:OnEnable()
         end
     end
 
-    if db.classcolor then
+    if DB.classcolor then
         hooksecurefunc("UnitFrameHealthBar_Update", SetColoredStatusBars)
         hooksecurefunc("HealthBar_OnValueChanged", SetColoredStatusBars)
     else
         hooksecurefunc("UnitFrameHealthBar_Update", SetUnColoredStatusBars)
         hooksecurefunc("HealthBar_OnValueChanged", SetUnColoredStatusBars)
+    end
+
+    -- Fix Bigdebuffs
+    if IsAddOnLoaded("BigDebuffs") then
+        hooksecurefunc(BigDebuffs, "UNIT_AURA", function(self, unit)
+            local Frame = self.UnitFrames[unit]
+            if not Frame then return end
+
+            if Frame.mask then
+                if Frame.unit == "player" then
+                    Frame.mask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+                    Frame.icon:SetDrawLayer("BACKGROUND")
+                    
+                    Frame:SetFrameLevel(PlayerFrame.PlayerFrameContainer:GetFrameLevel())
+                end
+
+                if Frame.unit == "target" then
+                    Frame.icon:SetDrawLayer("BACKGROUND")
+                    Frame:SetFrameLevel(TargetFrame.TargetFrameContainer:GetFrameLevel())
+                end
+
+                if Frame.unit == "focus" then
+                    Frame.icon:SetDrawLayer("BACKGROUND")
+                    Frame:SetFrameLevel(FocusFrame.TargetFrameContainer:GetFrameLevel())
+                end
+            end
+        end)
+    end
+
+    function self:CheckStyle()
+        return DB.frame_style == "big" or DB.frame_style == "small" and true or false
+    end
+
+    function self.AddPlayerFrameBorder(Style)
+        local FrameInfo = {
+            {
+                Width = 99,
+                Height = 81,
+                Pos = -9,
+                TexCoord = { 0.388671875, 0.001953125, 0.001953125, 0.318359375 }
+            },
+            {
+                Width = 80,
+                Height = 79,
+                Pos = 11,
+                TexCoord = { 0.314453125, 0.001953125, 0.634765625, 0.943359375 }
+            },
+            {
+                Width = 80,
+                Height = 79,
+                Pos = 11,
+                TexCoord = { 0.314453125, 0.001953125, 0.322265625, 0.630859375 }
+            }
+        }
+        
+        FrameInfo = FrameInfo[Style]
+
+        local FrameBorder = CreateFrame("Frame", "PlayerFrameBorder", PlayerFrame)
+        FrameBorder:SetFrameLevel(PlayerFrame:GetFrameLevel() + 8)
+        FrameBorder:SetSize(FrameInfo.Width, FrameInfo.Height)
+        FrameBorder:SetPoint("TOPLEFT", FrameInfo.Pos, -7)
+
+        FrameBorder.Border = FrameBorder:CreateTexture()
+        FrameBorder.Border:SetTexture("interface/hud/uiunitframeboss2x")
+        FrameBorder.Border:SetTexCoord(unpack(FrameInfo.TexCoord))
+        FrameBorder.Border:SetAllPoints()
+
+        if PhoUI.DARK_MODE then
+            FrameBorder.Border:SetDesaturated(1)
+            FrameBorder.Border:SetVertexColor(0.2, 0.2, 0.2)
+        end
     end
 end

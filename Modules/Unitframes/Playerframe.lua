@@ -1,10 +1,5 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
-local Module = PhoUI:NewModule("Playerframe")
+local P, H, O, U, I = ...
+local Module = PhoUI:NewModule("Unitframes.Playerframe")
 
 function Module:OnEnable()
     local db = PhoUI.db.profile.unitframes
@@ -114,12 +109,12 @@ function Module:OnEnable()
             ManaBar:SetPoint("TOPLEFT", 74, -59.5)
 
             HealthBar.LeftText:SetPoint("LEFT", HealthBar, "LEFT", 12, 0)
-            HealthBar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
-            HealthBar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            HealthBar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+            HealthBar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
 
             ManaBar.LeftText:SetPoint("LEFT", ManaBar, "LEFT", 12, 0)
-            ManaBar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
-            ManaBar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            ManaBar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+            ManaBar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
         elseif db.frame_style == "small" then
             PhoUI:SetAtlas(PlayerFrame.PlayerFrameContainer.FrameTexture, "PlayerFrame_Small", true)
             
@@ -147,16 +142,16 @@ function Module:OnEnable()
             ManaBar:SetPoint("TOPLEFT", 74, -59.5)
 
             HealthBar.LeftText:SetPoint("LEFT", HealthBar, "LEFT", 12, 0)
-            HealthBar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
-            HealthBar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            HealthBar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+            HealthBar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
 
             ManaBar.LeftText:SetPoint("LEFT", ManaBar, "LEFT", 12, 0)
-            ManaBar.LeftText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
-            ManaBar.RightText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            ManaBar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
+            ManaBar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
         end
 
         if db.frame_style ~= "blizzard" then
-            PlayerLevelText:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+            PlayerLevelText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
 
             if PlayerFrame.Background == nil then
                 PlayerFrame.Background = PlayerFrame:CreateTexture(nil, "ARTWORK")
@@ -193,7 +188,7 @@ function Module:OnEnable()
 
     local function PlayerFrame_UpdatePlayerNameTextAnchor()
         PlayerName:SetJustifyH("CENTER")
-        PlayerName:SetFont(PhoUI.DEFAULT_FONT, 10, "OUTLINE")
+        PlayerName:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
         PlayerName:ClearAllPoints()
 
         if db.frame_style == "big" then

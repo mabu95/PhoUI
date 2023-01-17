@@ -13,6 +13,7 @@ function Module:OnEnable()
     local Unitframes = PhoUI:GetModule("Core.Configs.Unitframes")
     local Actionbar = PhoUI:GetModule("Core.Configs.Actionbar")
     local Castbar = PhoUI:GetModule("Core.Configs.Castbar")
+    local Minimap = PhoUI:GetModule("Core.Configs.Minimap")
     local Miscellaneous = PhoUI:GetModule("Core.Configs.Miscellaneous")
 
     local Config = {
@@ -59,16 +60,16 @@ function Module:OnEnable()
             unitframes = Unitframes.Config,
             actionbar = Actionbar.Config,
             castbar = Castbar.Config,
-            miscellaneous = Miscellaneous.Config
+            miscellaneous = Miscellaneous.Config,
+            chat = PhoUI.Configs.Chat,
+            minimap = Minimap.Config,
+            options = LibStub("AceDBOptions-3.0"):GetOptionsTable(PhoUI.db)
         }
     }
 
     LibStub("AceConfig-3.0"):RegisterOptionsTable("PhoUI", Config)
-    local PhoUIOptions = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("PhoUI")
 
     function SlashCommand(msg)
-        --InterfaceOptionsFrame_OpenToCategory(PhoUIOptions)
-       -- InterfaceOptionsFrame_OpenToCategory(PhoUIOptions)
        LibStub("AceConfigDialog-3.0"):Open("PhoUI")
     end
 
@@ -77,7 +78,7 @@ function Module:OnEnable()
     PhoUI:RegisterChatCommand("rl", function(msg)
         ReloadUI()
     end)
-    LibStub("AceConfigDialog-3.0"):SetDefaultSize("PhoUI", 550, 640)
+    LibStub("AceConfigDialog-3.0"):SetDefaultSize("PhoUI", 695, 640)
 
     GameMenuFrame.Header:Hide()
     local MUIButton = CreateFrame("Button", "MUIButton", GameMenuFrame, "UIPanelButtonTemplate")
@@ -90,4 +91,5 @@ function Module:OnEnable()
         LibStub('AceConfigDialog-3.0'):Open('PhoUI')
         ToggleGameMenu()
     end)
+
 end

@@ -4,9 +4,11 @@
 ------- Github   https://github.com/mabu95 -----------------------------------
 ------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
 local p, h, o, u, i = ...
+local P, H, O, U, I = ...
 local LibSharedMedia = LibStub("LibSharedMedia-3.0")
-
 PhoUI = LibStub("AceAddon-3.0"):NewAddon("PhoUI", "AceConsole-3.0")
+
+PhoUI.Configs = {}
 
 function PhoUI:OnInitialize()
     self.TextBorder = {
@@ -16,6 +18,10 @@ function PhoUI:OnInitialize()
         ["MONOCHROME,OUTLINE"] = "MONOCHROME OUTLINE"
     }
 
+    _G.PhoUICharDB = _G.PhoUICharDB or {}
+    _G.PhoUICharChatDB = _G.PhoUICharChatDB or {}
+    _G.PhoUICharChatCMDDB = _G.PhoUICharChatCMDDB or {}
+
     self.Options = {
         profile = {
             minimap_icon = {
@@ -24,33 +30,40 @@ function PhoUI:OnInitialize()
             general = {
                 welcome_message = true,
                 font = "Gotham-Narrow-Medium",
-                disable_font = false,
+                disable_font = true,
                 theme = "blizzard",
-                minimap_icon = false
+                minimap_icon = false,
             },
             unitframes = {
-                frame_style = "big",
+                frame_style = "small",
                 chain = "none",
                 classcolor = true,
                 classbar = true,
+                classportraits = false,
                 hitindicator = false,
                 rested = false,
                 pvpicon = false,
-                buff_collapse = false,
+                buff_collapse = true,
                 buffsize = 25,
                 debuffsize = 20
             },
+            chat = {
+                style = "custom",
+                enable_history = true,
+                hide_buttons = true
+            },
             actionbar = {
                 enable = true,
-                enable_buttons = true,
-                gryphons = true,
                 style = "full",
-                menu_enable = true,
-                menu_hide = false,
-                short_keybinds = true,
-                text_size = 9,
+                gryphons = "faction",
+                custom_buttons = true,
                 hotkey = true,
                 macro = true,
+                text_size = 10,
+                short_hotkey = true,
+                menu_style = "custom",
+                menu_enable = true,
+                menu_hide = true,
                 statusbar = true
             },
             castbar = {
@@ -68,18 +81,23 @@ function PhoUI:OnInitialize()
                 pvp_tabbinder = true
                 --auto
             },
+            minimap = {
+                enable = true,
+                shape = "round",
+                show_header = true,
+                header_style = "default",
+                hide_icons = true
+            },
             editmode = {
                 durability = {
-                    point = "TOPRIGHT",
-                    x = 88,
-                    y = -144,
-                    scale = 1
+                    point = "CENTER",
+                    x = 0,
+                    y = 0,
                 },
                 vehicle = {
-                    point = "TOPRIGHT",
-                    x = 88,
-                    y = -144,
-                    scale = 1
+                    point = "CENTER",
+                    x = 0,
+                    y = 0,
                 },
                 statustracking = {
                     point = "BOTTOM",
@@ -102,10 +120,10 @@ function PhoUI:OnInitialize()
     self.db = LibStub("AceDB-3.0"):New("PHOUIDB", self.Options, true)
 
     self.THEME = self.db.profile.general.theme
-    if self.db.profile.general.disable_font then
-        self.DEFAULT_FONT = STANDARD_TEXT_FONT
-    else
-        self.DEFAULT_FONT = LibSharedMedia:Fetch("font", self.db.profile.general.font) 
+
+    self.DEFAULT_FONT = LibSharedMedia:Fetch("font", self.db.profile.general.font)
+    if not self.db.profile.general.disable_font then
+        self.FONT = LibSharedMedia:Fetch("font", self.db.profile.general.font)
     end
 
     if self.THEME == "dark" then

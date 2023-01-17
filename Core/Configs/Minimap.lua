@@ -1,33 +1,53 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
+local P, H, O, U, I = ...
 local Module = PhoUI:NewModule("Core.Configs.Minimap")
 
 function Module:OnEnable()
     self.Config = {
         name = "Minimap",
         type = "group",
-        order = 6,
+        order = 5,
         args = {
             header = {
                 name = "Minimap Options",
                 type = "header",
-                dialogControl = "SFX-Header",
                 disabled = true,
                 order = 1
             },
-            size = {
-                name = "Minimap Size",
-                desc = "Set the Debuff Icon Size",
-                type = "range",
-                min = 15,
-                max = 50,
-                step = 1,
-                order = 12,
-                width = "full"
+            enable = {
+                name = "Enable Custom Minimap",
+                desc = "Enable PhoUI Minimap",
+                type = "toggle",
+                width = 1.3,
+                order = 2
+            },
+            hide_icons = {
+                name = "Hide Minimap Icons",
+                desc = "Hide the Minimap Icons",
+                type = "toggle",
+                width = 1.3,
+                order = 3
+            },
+            shape = {
+                name = "Shape",
+                desc = "Set the Shape of the Minimap",
+                type = "select",
+                width = 1.3,
+                values = {
+                    ["round"] = "Round",
+                    ["square"] = "Square"
+                },
+                order = 4
+            },
+            header_style = {
+                name = "Header Style",
+                desc = "Set the Style of the Minimap Header",
+                type = "select",
+                width = 1.3,
+                values = {
+                    ["default"] = "Default",
+                    ["inside"] = "Inside"
+                },
+                order = 5
             }
         }
     }

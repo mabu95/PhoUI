@@ -10,7 +10,7 @@ function Module:OnEnable()
     self.Config = {
         name = "Miscellaneous",
         type = "group",
-        order = 6,
+        order = 7,
         args = {
             header = {
                 name = "Miscellaneous",

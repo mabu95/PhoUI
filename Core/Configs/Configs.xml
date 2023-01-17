@@ -4,5 +4,11 @@
     <Include file="Unitframes.lua"/>
     <Include file="Actionbar.lua"/>
     <Include file="Castbar.lua"/>
+
+
+<Include file="Minimap.lua"/>
+
     <Include file="Miscellaneous.lua"/>
+
+    <Include file="Chat.lua"/>
 </Ui>

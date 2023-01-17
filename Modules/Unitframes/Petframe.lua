@@ -1,9 +1,4 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
+local P, H, O, U, I = ...
 local Module = PhoUI:NewModule("Petframe")
 
 function Module:OnEnable()
@@ -25,6 +20,7 @@ function Module:OnEnable()
     local PetAttackModeTexture = PetAttackModeTexture
 
     local function PetFrame_OnEvent()
+        if PetFrame.PhoUI then return end
         PhoUI:HideFrame(PetFrameHealthBarMask)
         PhoUI:HideFrame(PetFrameManaBarMask)
         PhoUI:HideFrame(PetFrameOverAbsorbGlow)
@@ -77,6 +73,8 @@ function Module:OnEnable()
         PhoUI:SetAtlas(PetAttackModeTexture, "ToTFrame_Flash", true)
         PetAttackModeTexture:ClearAllPoints()
         PetAttackModeTexture:SetPoint("TOPLEFT", PetFrame, "TOPLEFT", 1, -1)
+
+        PetFrame.PhoUI = true
     end
 
     if not db.hitindicator then

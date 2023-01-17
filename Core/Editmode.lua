@@ -7,6 +7,8 @@ local p, h, o, u, i = ...
 local Module = PhoUI:NewModule("Core.Editmode")
 local LibEditMode = LibStub("LibEditMode")
 
+-- @TODO: Fix when invisible
+
 function Module:OnEnable()
     local db = PhoUI.db.profile.editmode
     local CustomActionbar = PhoUI.db.profile.actionbar.enable

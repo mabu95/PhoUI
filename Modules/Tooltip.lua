@@ -158,6 +158,7 @@ function Module:OnEnable()
 
     TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Unit, Update_TooltipDataType)
 
+    --[[
     TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
         if not PhoUI.DARK_MODE then return end
         self:SetBackdropBorderColor(0.1, 0.1, 0.1, 0.9)
@@ -186,4 +187,5 @@ function Module:OnEnable()
     for _, Tooltip in next, Tooltips do
         PhoUI_DARK_MODE_Tooltip(Tooltip)
     end
+    ]]
 end

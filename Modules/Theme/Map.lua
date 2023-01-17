@@ -13,6 +13,11 @@ function Module:OnEnable()
     PhoUI.StyleButton(WorldMapFrameCloseButton)
     PhoUI.StyleFrame(WorldMapFrame.BorderFrame.Bg)
 
+    MinimapCompassTexture:SetDesaturated(1)
+    MinimapCompassTexture:SetVertexColor(0.1, 0.1, 0.1)
+
+    --SetDesaturated
+
     for _, B in ipairs({WorldMapFrame.BorderFrame.MaximizeMinimizeFrame:GetChildren()}) do
         PhoUI.StyleButton(B)
     end

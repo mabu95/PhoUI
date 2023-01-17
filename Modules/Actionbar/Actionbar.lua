@@ -1,99 +1,99 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
-local Actionbar = PhoUI:NewModule("Actionbar")
+local P, H, O, U, I = ...
+local Module = PhoUI:NewModule("Actionbar.Actionbar")
+local LibEditModeOverride = LibStub("LibEditModeOverride-1.0")
 
-function Actionbar:OnEnable()
-    local db = PhoUI.db.profile.actionbar
+function Module:OnEnable()
+
+    local DB = PhoUI.db.profile.actionbar
     local Dominos, Bartender4 = IsAddOnLoaded("Dominos"), IsAddOnLoaded("Bartender4")
-    if Dominos or Bartender4 then return end
+    local MainMenuBar = MainMenuBar
+    local MultiBarBottomRight = MultiBarBottomRight
+    local StanceBar = StanceBar
+    local PetActionBar = PetActionBar
+    local MultiBarBottomLeftButton1 = MultiBarBottomLeftButton1
+    local MultiBarLeft = MultiBarLeft
+    local MultiBarRight = MultiBarRight
+    local MultiBarBottomLeft = MultiBarBottomLeft
 
-    if not db.enable and db.enable_buttons then
-        return
-    end
+    local function MoveBars()
 
-    function self:Init()
-        if db.enable then
-            MultiBarBottomRight:SetFrameLevel(2)
-            MainMenuBar:ClearAllPoints()
-            MainMenuBar:SetPoint("LEFT", PhoUIActionbar, "LEFT", -4, 0)
-    
-            for i = 1, 12 do
-                local MainMenuBarButton         = _G["ActionButton" .. i]
-                local MultiBarBottomRightButton = _G["MultiBarBottomRightButton" .. i]
-                local MultiBarBottomLeftButton  = _G["MultiBarBottomLeftButton" .. i]
-    
-                local PlacerholderButtonLeft    = _G[p .. "PlaceholderButtonLeft" .. i]
-                local PlacerholderButtonRight   = _G[p .. "PlaceholderButtonRight" .. i]
-    
-                MainMenuBarButton:ClearAllPoints()
-                MainMenuBarButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 0)
-    
-                MainMenuBarButton.RightDivider:Hide()
-                MainMenuBarButton.RightDivider:Hide()
+        -- Update Frame Levels
+        MultiBarBottomLeft:SetFrameLevel(MainMenuBar:GetFrameLevel() + 1)
+        MultiBarBottomRight:SetFrameLevel(MainMenuBar:GetFrameLevel() + 1)
 
-                MultiBarBottomLeftButton:ClearAllPoints()
-                MultiBarBottomLeftButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 43)
-    
-                if db.style == "full" then
-                    if i <= 6 then
-                        MultiBarBottomRightButton:ClearAllPoints()
-                        MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 0)
-                    else
-                        local i = i - 6
-                        PlacerholderButtonRight = _G[p .. "PlaceholderButtonRight" .. i]
-                        MultiBarBottomRightButton:ClearAllPoints()
-                        MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 43)
-                    end
+        for i = 1, 12 do
+            local MainMenuBarButton         = _G["ActionButton" .. i]
+            local MultiBarBottomRightButton = _G["MultiBarBottomRightButton" .. i]
+            local MultiBarBottomLeftButton  = _G["MultiBarBottomLeftButton" .. i]
+            local PlacerholderButtonLeft    = _G[P .. "PlaceHolderButtonLeft" .. i]
+            local PlacerholderButtonRight   = _G[P .. "PlaceHolderButtonRight" .. i]
+
+            MainMenuBarButton.RightDivider:Hide()
+            MainMenuBarButton.RightDivider:Hide()
+            MainMenuBar.EndCaps:Hide()
+            MainMenuBar.Background:Hide()
+            MainMenuBar.BorderArt:Hide()
+
+            MainMenuBarButton:ClearAllPoints()
+            MainMenuBarButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 0)
+
+            MultiBarBottomLeftButton:ClearAllPoints()
+            MultiBarBottomLeftButton:SetPoint("CENTER", PlacerholderButtonLeft, "CENTER", 0, 43)
+
+            if DB.style == "full" then
+                if i <= 6 then
+                    MultiBarBottomRightButton:ClearAllPoints()
+                    MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 0)
+                else
+                    local i = i - 6
+                    PlacerholderButtonRight = _G[P .. "PlaceHolderButtonRight" .. i]
+                    MultiBarBottomRightButton:ClearAllPoints()
+                    MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 43)
                 end
+            elseif DB.style == "classic" then
+                MultiBarBottomRightButton:ClearAllPoints()
+                MultiBarBottomRightButton:SetPoint("CENTER", PlacerholderButtonRight, "CENTER", 0, 0)
             end
-
-            -- Right Bars
-            for i = 1, 12 do
-                local ButtonLeft = _G["MultiBarLeftButton" .. i]
-                local ButtonRight = _G["MultiBarRightButton" .. i]
-
-                local POS_X = (i - 1) * 39 + 8
-
-                ButtonLeft:ClearAllPoints()
-                ButtonLeft:SetPoint("TOPLEFT", MultiBarLeft, "TOPLEFT", 0, -POS_X)
-
-                ButtonRight:ClearAllPoints()
-                ButtonRight:SetPoint("TOPLEFT", MultiBarRight, "TOPLEFT", 0, -POS_X)
-            end
-
-            StanceBar:ClearAllPoints()
-            StanceBar:SetPoint("TOPLEFT", MultiBarBottomLeftButton1, "TOPLEFT", 3, 35)
-
-            PetActionBar:ClearAllPoints()
-            PetActionBar:SetPoint("TOPLEFT", MultiBarBottomLeftButton1, "TOPLEFT", 3, 35)
         end
 
-        local function UpdateButton(Button, SetSize)
-            local Icon = _G[Button:GetName() .. "Icon"]
-            --local Mask = _G[Button:GetName()].IconMask
-            --Mask:Hide()
-            --[[
-            Icon:SetTexCoord(.08, .92, .08, .92)
-            Icon:ClearAllPoints()
-            Icon:SetPoint("TOPLEFT", 1, -1)
-            Icon:SetPoint("BOTTOMRIGHT", -1, 1)
-            Icon:SetDrawLayer("BACKGROUND")
-            ]]
+        for i = 1, 12 do
+            local ButtonLeft = _G["MultiBarLeftButton" .. i]
+            local ButtonRight = _G["MultiBarRightButton" .. i]
 
-            local Width, Height = Button:GetSize()
+            local PosX = (i - 1) * 39 + 8
 
-            if db.enable and SetSize then
-                Width, Height = _G[p .. "PlaceholderButtonLeft1"]:GetSize()
-                Width = Width - 2
-                Height = Height - 2
-                Button:SetScale(1)
-                Button:SetSize(Width, Height)
+            ButtonLeft:ClearAllPoints()
+            ButtonLeft:SetPoint("TOPLEFT", MultiBarLeft, "TOPLEFT", 0, -PosX)
+
+            ButtonRight:ClearAllPoints()
+            ButtonRight:SetPoint("TOPLEFT", MultiBarRight, "TOPLEFT", 0, -PosX)
+        end
+    end
+
+    local function UpdateButton(Button, SetSize)
+        UpdateButtonText(Button)
+
+        if not DB.custom_buttons then
+            if PhoUI.DARK_MODE then
+                Button:GetNormalTexture():SetVertexColor(0.2, 0.2, 0.2)
+                if Button.RightDivider then
+                    Button.RightDivider:SetVertexColor(0.2, 0.2, 0.2)
+                end
             end
+        end
 
+        local Width, Height = Button:GetSize()
+
+        if DB.enable and SetSize then
+            Width, Height = _G[P .. "PlaceHolderButtonLeft1"]:GetSize()
+            Width = Width - 2
+            Height = Height - 2
+
+            Button:SetScale(1)
+            Button:SetSize(Width, Height)
+        end
+
+        if DB.enable or DB.custom_buttons then
             PhoUI:SetButtonAtlas(Button, "NormalTexture", "Button_Border")
             Button:GetNormalTexture():SetSize(Width, Height)
 
@@ -120,17 +120,14 @@ function Actionbar:OnEnable()
             _G[Button:GetName()].NewActionTexture:SetPoint("TOPLEFT", Button, "TOPLEFT", 0, 0)
             _G[Button:GetName()].NewActionTexture:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
 
-            --_G[Button:GetName()].SpellHighlightTexture:SetTexture(PhoUI.TEXTURE_PATH .. "Button_Pushed")
             _G[Button:GetName()].SpellHighlightTexture:ClearAllPoints()
             _G[Button:GetName()].SpellHighlightTexture:SetPoint("TOPLEFT", Button, "TOPLEFT", 0, 0)
             _G[Button:GetName()].SpellHighlightTexture:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
-
 
             Button.CheckedTexture:SetAllPoints()
             Button:GetPushedTexture():SetAllPoints()
             Button.HighlightTexture:SetAllPoints()
 
-            
             if Button and Button.Backdrop == nil then
                 Button.Backdrop = CreateFrame("Frame", Button:GetName() .. "Backdrop", Button, "BackdropTemplate")
                 Button.Backdrop:SetFrameLevel(Button:GetFrameLevel() - 1)
@@ -157,10 +154,15 @@ function Actionbar:OnEnable()
                 Button.Backdrop:SetPoint("TOPLEFT", Button, "TOPLEFT", -3, 3)
                 Button.Backdrop:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 2, -2)
             end
-            
-            UpdateKeybind(Button)
         end
-    
+    end
+
+    local function Init()
+        if DB.enable then
+            MoveBars()
+        end
+
+        -- Style Buttons
         for i = 1, 12 do
             UpdateButton(_G["ActionButton" .. i], true);
             UpdateButton(_G["MultiBarBottomLeftButton" .. i], true);
@@ -178,7 +180,7 @@ function Actionbar:OnEnable()
         end
     end
 
-    local function ShortKeybinds(Text)
+    function ShortHotkeys(Text)
         for i = 0, 9 do
             if Text == _G["KEY_NUMPAD"..i] then
                 Text = gsub(Text, _G["KEY_NUMPAD"..i], "Nu"..i)
@@ -233,10 +235,10 @@ function Actionbar:OnEnable()
             ["SML"] = "S%" .. KEY_BUTTON1,
             ["SMR"] = "C%" .. KEY_BUTTON2,
             ["CMR"] = "S%" .. KEY_BUTTON2,
-            ["SM4"] = "C%" .. KEY_BUTTON3,
-            ["CM4"] = "S%" .. KEY_BUTTON3,
-            ["CM3"] = "C%" .. KEY_BUTTON4,
-            ["SM3"] = "S%" .. KEY_BUTTON4,
+            ["SM3"] = "C%" .. KEY_BUTTON3,
+            ["CM3"] = "S%" .. KEY_BUTTON3,
+            ["CM4"] = "C%" .. KEY_BUTTON4,
+            ["SM4"] = "S%" .. KEY_BUTTON4,
             ["SM5"] = "C%" .. KEY_BUTTON5,
             ["CM5"] = "S%" .. KEY_BUTTON5,
         }
@@ -250,30 +252,41 @@ function Actionbar:OnEnable()
         return Text
     end
 
-    function UpdateKeybind(Button)
-        local HotKey = _G[Button:GetName() .. "HotKey"]
-        local Macro = _G[Button:GetName() .. "Name"]
-        local Count = _G[Button:GetName() .. "Count"]
+    function UpdateButtonText(Button)
+        local Name = Button:GetName()
+        local HotKey = _G[Name .. "HotKey"]
+        local Macro = _G[Name .. "Name"]
+        local Count = _G[Name .. "Count"]
         local Text = HotKey:GetText()
+
+        local FontName, _, _ = NumberFontNormalSmallGray:GetFont()
+
+        if PhoUI.db.profile.general.disable_font then
+            HotKey:SetFont(FontName, DB.text_size, "OUTLINE")
+            Macro:SetFont(FontName, DB.text_size, "OUTLINE")
+            Count:SetFont(FontName, DB.text_size, "OUTLINE")
+        else
+            HotKey:SetFont(PhoUI.FONT, DB.text_size, "OUTLINE")
+            Macro:SetFont(PhoUI.FONT, DB.text_size, "OUTLINE")
+            Count:SetFont(PhoUI.FONT, DB.text_size, "OUTLINE")
+        end
 
         if Text == nil then return end
 
-        if db.short_keybinds then
-            Text = ShortKeybinds(Text)
+        HotKey:SetAlpha(DB.hotkey and 1 or 0)
+        Macro:SetAlpha(DB.macro and 1 or 0)
+
+        Macro:ClearAllPoints()
+        Macro:SetPoint("BOTTOM", 0, 4)
+        
+        if DB.short_hotkey then
+            Text = ShortHotkeys(Text)
+            HotKey:SetText(Text)
         end
-
-        HotKey:SetFont(PhoUI.DEFAULT_FONT, db.text_size, "OUTLINE")
-        Macro:SetFont(PhoUI.DEFAULT_FONT, db.text_size, "OUTLINE")
-        Count:SetFont(PhoUI.DEFAULT_FONT, db.text_size, "OUTLINE")
-
-        HotKey:SetAlpha(db.hotkey and 1 or 0)
-        Macro:SetAlpha(db.macro and 1 or 0)
-
-        HotKey:SetText(Text)
     end
 
     self.EventFrame = CreateFrame("Frame")
     self.EventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
     self.EventFrame:RegisterEvent("UPDATE_BINDINGS")
-    self.EventFrame:SetScript("OnEvent", self.Init)
+    self.EventFrame:SetScript("OnEvent", Init)
 end
