@@ -74,7 +74,7 @@ function Module:OnEnable()
 
             Frame.manabar:SetSize(134, 12)
             Frame.manabar:ClearAllPoints()
-            Frame.manabar:SetPoint("TOPRIGHT", -73, -60)
+            Frame.manabar:SetPoint("TOPRIGHT", -75, -60)
             Frame.manabar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.manabar.LeftText:SetPoint("LEFT", Frame.manabar, 5, 0)
             Frame.manabar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
