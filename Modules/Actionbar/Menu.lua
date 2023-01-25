@@ -280,8 +280,10 @@ function Module:OnEnable()
             MicroMenu:SetClampedToScreen(false)
             ApplyNewStyle()
         elseif DB.menu_style == "hide" then
-            MicroButtonAndBagsBar:SetAlpha(0)
-            MicroButtonAndBagsBar:Hide()
+            BagsBar:SetAlpha(0)
+            BagsBar:Hide()
+            MicroMenu:SetAlpha(0)
+            MicroMenu:Hide()
         end
     end
 

@@ -118,6 +118,8 @@ function PhoUI:OnInitialize()
     LibSharedMedia:Register("statusbar", "PhoUI", [[Interface\Addons\PhoUI\Media\Textures\Statusbar]])
     LibSharedMedia:Register("statusbar", "Dragonflight", [[Interface\Addons\PhoUI\Media\Textures\Statusbar_Default]])
     LibSharedMedia:Register("statusbar", "Dragonflight White", [[Interface\Addons\PhoUI\Media\Textures\Statusbar_Default_White]])
+    LibSharedMedia:Register("statusbar", "PhoUI Flat", [[Interface\Addons\PhoUI\Media\Textures\Flat]])
+
 
     self.LibSharedMedia = LibSharedMedia
     self.db = LibStub("AceDB-3.0"):New("PHOUIDB", self.Options, true)
