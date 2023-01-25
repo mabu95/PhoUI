@@ -104,6 +104,10 @@ function Module:OnEnable()
     local function CreateGryphons()
         local Style = DB.gryphons
 
+        if Style == nil or Style == "" then
+            Style = "Faction"
+        end
+
         local LeftGryphon, RightGryphon
 
         if Style == "Faction" then
@@ -368,6 +372,8 @@ function Module:OnEnable()
         if DB.style == "full" or DB.style == "classic" then
             RightActionbarButtons()
         end
+
+        Actionbar:SetScale(DB.size)
     
         ActionbarPageFrame()
         CreateGryphons()

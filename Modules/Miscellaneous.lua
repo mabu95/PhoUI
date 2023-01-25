@@ -1,9 +1,17 @@
 local P, H, O, U, I = ...
 local Module = PhoUI:NewModule("Miscellaneous")
 
+function Module:OnInitialize()
+    local db = PhoUI.db.profile.miscellaneous
+    PhoUI:RegisterChatCommand(db.pvp_surrender, function(msg)
+        SurrenderArena()
+    end)
+end
+
 function Module:OnEnable()
     local db = PhoUI.db.profile.miscellaneous
     self.EventFrame = CreateFrame("Frame")
+    self.EventFrame:RegisterEvent("ADDON_LOADED")
     self.EventFrame:RegisterEvent("MERCHANT_SHOW")
     self.EventFrame:RegisterEvent("CHAT_MSG_WHISPER")
     self.EventFrame:RegisterEvent("CHAT_MSG_BN_WHISPER")
@@ -147,10 +155,6 @@ function Module:OnEnable()
             end
         end)
     end
-
-    -- Surrender Arena with Command
-    SLASH_SURRENDERPHOUI = "/" .. db.pvp_surrender
-    SlashCmdList.SURRENDERPHOUI = SurrenderArena;
 
     if db.auto_sell then
         AutoSell()

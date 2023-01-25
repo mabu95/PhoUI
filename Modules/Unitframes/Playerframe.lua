@@ -253,15 +253,10 @@ function Module:OnEnable()
 
     PlayerFrame:HookScript("OnEvent", function(s, e)
         if e == "PLAYER_ENTERING_WORLD" then
-
-            --s.healthbar:GetStatusBarTexture():SetAtlas("UI-HUD-UnitFrame-Player-PortraitOn-Bar-Health-Status")
-            --s.healthbar:GetStatusBarTexture():SetHorizTile(true)
-
-            --s.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
-            --s.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "test-hp")
-            --20/512, 210/512, 26/512, 93/512
-            --s.healthbar:GetStatusBarTexture():SetTexCoord( 375/512, 511/512, 40/512, 71/512 )
-            --.healthbar.AnimatedLossBar:SetAtlas(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
+            if db.texture ~= "default" then
+                local Texture = PhoUI:GetTexture(db.texture)
+                s.healthbar:SetStatusBarTexture(Texture)
+            end
         end
 
         if not db.classbar then

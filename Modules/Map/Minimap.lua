@@ -8,6 +8,7 @@ function Module:OnEnable()
     local MinimapCompassTexture = MinimapCompassTexture
     local ZoomIn = Minimap.ZoomIn
     local ZoomOut = Minimap.ZoomOut
+    local MailFrame = MinimapCluster.IndicatorFrame.MailFrame
     local MinimapButtons = LibDBIcon:GetButtonList()
 
     PhoUI:HideFrame(ZoomIn)
@@ -89,9 +90,12 @@ function Module:OnEnable()
         GameTimeFrame:Hide()
         MinimapCluster.Tracking:Hide()
 
-        MinimapCluster.MailFrame:ClearAllPoints()
-        MinimapCluster.MailFrame:SetPoint("CENTER", Minimap, "TOPRIGHT", -8, -55)
-        CreateMinimapButtonBorder(MinimapCluster.MailFrame, "Mailbox")
+        --MailFrame:SetParent(MinimapCluster)
+        --MinimapCluster.IndicatorFrame:ClearAllPoints()
+        --MinimapCluster.IndicatorFrame:SetPoint("CENTER", Minimap, "TOPRIGHT", -8, -55)
+        --MailFrame:ClearAllPoints()
+
+        CreateMinimapButtonBorder(MailFrame, "Mailbox")
         MiniMapMailIcon:Hide()
 
         -- Hide Minimap Icons
@@ -104,6 +108,12 @@ function Module:OnEnable()
             end
         end
     end)
+
+    MailFrame:HookScript("OnEvent", function(self)
+        self:ClearAllPoints()
+        self:SetPoint("CENTER", Minimap, "TOPRIGHT", -8, -55)
+    end)
+
 
     Minimap:SetScript("OnMouseUp", function(self, button)
         if button=="RightButton" then

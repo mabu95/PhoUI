@@ -1,9 +1,4 @@
-------- This file is part of PhoUI -------------------------------------------
-------- Twitch   https://www.twitch.tv/phoyk ---------------------------------
-------- Twitter  https://twitter.com/phoykwow --------------------------------
-------- Github   https://github.com/mabu95 -----------------------------------
-------- Discord  https://discord.gg/RxjhKWsN3V -------------------------------
-local p, h, o, u, i = ...
+local P, H, O, U, I = ...
 local Module = PhoUI:NewModule("Core.Configs.Actionbar")
 
 function Module:OnEnable()
@@ -61,16 +56,35 @@ function Module:OnEnable()
                     ["Hide"] = "Hide"
                 },
             },
+            actionbar_size = {
+                name = "Actionbar Size",
+                desc = "Set the Size for Actionbar",
+                type = "range",
+                order = 7,
+                min = 1,
+                max = 2,
+                step = 0.25,
+                width = "full",
+                get = function()
+                    return PhoUI.db.profile.actionbar.size
+                end,
+                set = function(info, value)
+                    local Actionbar = _G[P .. "Actionbar"]
+                    Actionbar:SetScale(value)
+                    PhoUI.db.profile.actionbar.size = value
+                    print(value)
+                end
+            },
             menu_header = {
                 name = "Menu",
                 type = "header",
-                order = 7
+                order = 8
             },
             menu_style = {
                 name = "Menu Style",
                 desc = "Select the Type of Menu",
                 type = "select",
-                order = 8,
+                order = 9,
                 values = {
                     ["custom"] = "Custom",
                     ["blizzard"] = "Blizzard",
@@ -79,116 +93,4 @@ function Module:OnEnable()
             }
         }
     }
-    --[[
-    self.Config = {
-        name = "Actionbar",
-        type = "group",
-        order = 3,
-        args = {
-            header = {
-                name = "Actionbar Options",
-                type = "header",
-                dialogControl = "SFX-Header",
-                disabled = true,
-                order = 1
-            },
-            enable = {
-                name = "PhoUI Actionbar",
-                desc = "Enable PhoUI Custom Actionbar",
-                type = "toggle",
-                width = 1.25,
-                order = 2
-            },
-            enable_buttons = {
-                name = "PhoUI Button Border",
-                desc = "Enable PhoUI Actionbar Button Borders",
-                type = "toggle",
-                width = "full",
-                order = 3,
-            },
-            gryphons = {
-                name = "Show Gryphons",
-                desc = "Show Gryphons on Actionbar",
-                type = "toggle",
-                width = 1.25,
-                order = 4
-            },
-            style = {
-                name = "Style",
-                desc = "Set the Style of Actionbar",
-                type = "select",
-                width = "full",
-                order = 4,
-                values = {
-                    ["big"] = "Half",
-                    ["full"] = "Full",
-                }
-            },
-
-            short_keybinds = {
-                name = "Short Keybinds",
-                desc = "Use short Keybinds like SWU (Shift-Wheelup)",
-                type = "toggle",
-                order = 6,
-                width = "full"
-            },
-            hotkey = {
-                name = "Show Hotkeys",
-                desc = "Show Hotkeys on Actionbar",
-                type = "toggle",
-                width = 1.25,
-                order = 7
-            },
-            macro = {
-                name = "Show Macros",
-                desc = "Show Macros on Actionbar",
-                type = "toggle",
-                width = "full",
-                order = 8
-            },
-            text_size = {
-                name = "Textsize",
-                desc = "Set Text Size for Actionbar Texts",
-                type = "range",
-                min = 8,
-                max = 20,
-                step = 1,
-                order = 9,
-                width = "full"
-            },
-            spacer1 = {
-                name = "",
-                type = "header",
-                order = 10
-            },
-            menu_header = {
-                name = "Menu Options",
-                type = "header",
-                dialogControl = "SFX-Header",
-                disabled = true,
-                order = 11
-            },
-            menu_enable = {
-                name = "PhoUI Menu",
-                desc = "Enable PhoUI Custom Menu",
-                type = "toggle",
-                width = "full",
-                order = 12
-            },
-            menu_hide = {
-                name = "Hide Menu",
-                desc = "Hide Menu",
-                type = "toggle",
-                width = "full",
-                order = 13
-            },
-            statusbar = {
-                name = "Hide Statusbar",
-                desc = "Hide Statusbar and XP/Honor Bar",
-                type = "toggle",
-                width = "full",
-                order = 14
-            }
-        }
-    }]]
 end

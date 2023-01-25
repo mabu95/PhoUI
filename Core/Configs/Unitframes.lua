@@ -44,58 +44,76 @@ function Module:OnEnable()
                     [3] = "Elite"
                 }
             },
+            texture = {
+                name = "Texture",
+                desc = "Set a Texture for Unitframes",
+                type = "select",
+                order = 5,
+                width = "full",
+                values = PhoUI.LibSharedMedia:HashTable("statusbar"),
+                dialogControl = "LSM30_Statusbar",
+            },
+            raid_texture = {
+                name = "Raidframe Texture",
+                desc = "Set a Texture for Raidframes",
+                type = "select",
+                order = 6,
+                width = "full",
+                values = PhoUI.LibSharedMedia:HashTable("statusbar"),
+                dialogControl = "LSM30_Statusbar",
+            },
             spacer2 = {
                 name = "",
                 type = "header",
-                order = 5,
+                order = 7,
             },
             misc_header = {
                 name = "Miscellaneous",
                 type = "header",
                 dialogControl = "SFX-Header",
                 disabled = true,
-                order = 6
+                order = 8
             },
             classcolor = {
                 name = "Classcolor Unitframes",
                 desc = "Set the Unitframes (Bars) Classcolored",
                 type = "toggle",
-                order = 7,
+                order = 9,
                 width = "full"
             },
             classbar = {
                 name = "Classbar",
                 desc = "Show Classbar under Playerframe",
                 type = "toggle",
-                order = 8,
+                order = 10,
                 width = "full"
             },
             hitindicator = {
                 name = "Hitindicator",
                 desc = "Show Hitindicator",
                 type = "toggle",
-                order = 9,
+                order = 11,
                 width = "full"
             },
             rested = {
                 name = "Rested",
                 desc = "Show Rested",
                 type = "toggle",
-                order = 10,
+                order = 12,
                 width = "full"
             },
             pvpicon = {
                 name = "PvP Icon",
                 desc = "Show PvP Icons",
                 type = "toggle",
-                order = 11,
+                order = 13,
                 width = "full"
             },
             buff_collapse = {
                 name = "Buff Collapse Icon",
                 desc = "Show Buff Collapse Icon (Buffframe on Minimap)",
                 type = "toggle",
-                order = 12,
+                order = 14,
                 width = "full"
             },
             buffsize = {
@@ -105,7 +123,7 @@ function Module:OnEnable()
                 min = 15,
                 max = 50,
                 step = 1,
-                order = 13,
+                order = 15,
                 width = "full"
             },
             debuffsize = {
@@ -115,7 +133,7 @@ function Module:OnEnable()
                 min = 15,
                 max = 50,
                 step = 1,
-                order = 12,
+                order = 16,
                 width = "full"
             }
         }

@@ -97,8 +97,8 @@ function Module:OnEnable()
             Width, Height = _G[P .. "PlaceHolderButtonLeft1"]:GetSize()
             Width = Width - 2
             Height = Height - 2
-
-            Button:SetScale(1)
+            
+            Button:SetScale(DB.size)
             Button:SetSize(Width, Height)
         end
 
@@ -125,6 +125,10 @@ function Module:OnEnable()
             _G[Button:GetName() .. "Cooldown"]:ClearAllPoints()
             _G[Button:GetName() .. "Cooldown"]:SetPoint("TOPLEFT", Button, "TOPLEFT", -1, -1)
             _G[Button:GetName() .. "Cooldown"]:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
+
+            _G[Button:GetName()].QuickKeybindHighlightTexture:ClearAllPoints()
+            _G[Button:GetName()].QuickKeybindHighlightTexture:SetPoint("TOPLEFT", Button, "TOPLEFT", -1, -1)
+            _G[Button:GetName()].QuickKeybindHighlightTexture:SetPoint("BOTTOMRIGHT", Button, "BOTTOMRIGHT", 0, 0)
 
             _G[Button:GetName()].NewActionTexture:SetTexture(PhoUI.TEXTURE_PATH .. "Button_Pushed")
             _G[Button:GetName()].NewActionTexture:ClearAllPoints()
@@ -246,8 +250,8 @@ function Module:OnEnable()
             ["SML"] = "S%" .. KEY_BUTTON1,
             ["SMR"] = "C%" .. KEY_BUTTON2,
             ["CMR"] = "S%" .. KEY_BUTTON2,
-            ["SM3"] = "C%" .. KEY_BUTTON3,
-            ["CM3"] = "S%" .. KEY_BUTTON3,
+            ["SM3"] = "S%" .. KEY_BUTTON3,
+            ["CM3"] = "C%" .. KEY_BUTTON3,
             ["CM4"] = "C%" .. KEY_BUTTON4,
             ["SM4"] = "S%" .. KEY_BUTTON4,
             ["SM5"] = "C%" .. KEY_BUTTON5,

@@ -6,7 +6,7 @@
 local p, h, o, u, i = ...
 local P, H, O, U, I = ...
 local LibSharedMedia = LibStub("LibSharedMedia-3.0")
-PhoUI = LibStub("AceAddon-3.0"):NewAddon("PhoUI", "AceConsole-3.0")
+PhoUI = LibStub("AceAddon-3.0"):NewAddon("PhoUI", "AceConsole-3.0", "AceHook-3.0")
 
 PhoUI.Configs = {}
 
@@ -37,6 +37,8 @@ function PhoUI:OnInitialize()
             unitframes = {
                 frame_style = "small",
                 chain = "none",
+                texture = "default",
+                raid_texture = "default",
                 classcolor = true,
                 classbar = true,
                 classportraits = false,
@@ -55,6 +57,7 @@ function PhoUI:OnInitialize()
             actionbar = {
                 enable = true,
                 style = "full",
+                size = 1,
                 gryphons = "Faction",
                 custom_buttons = true,
                 hotkey = true,
@@ -192,6 +195,16 @@ function PhoUI:OnInitialize()
             self:SetAtlas(LevelFrame.Border, "Level", true)
             LevelFrame.Border:SetAllPoints()
         end
+    end
+
+    local function PurgeVarKey(t, k)
+        t[k] = nil
+        local c = 42
+        repeat
+            if t[c] == nil then t[c] = nil end
+            c = c + 1
+
+        until issecurevariable(t, k)
     end
 
     if self.db.profile.general.welcome_message then

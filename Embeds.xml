@@ -17,6 +17,7 @@
     <Include file="Libs\LibEditMode\embed.xml"/>
     <Include file="Libs\LibEditModeOverride\LibEditModeOverride.xml"/>
     <Include file="Libs\TaintLess.xml"/>
+    <Include file="Libs\LibPho\LibPho.xml"/>
 
     <Include file="Core/PhoUI.lua"/>
     <Include file="Core/AtlasList.lua"/>
@@ -33,6 +34,7 @@
     <Include file="Modules/Unitframes/Playerframe.lua"/>
     <Include file="Modules/Unitframes/Targetframe.lua"/>
     <Include file="Modules/Unitframes/PetFrame.lua"/>
+    <Include file="Modules/Unitframes/CompactUnitFrame.lua"/>
     <Include file="Modules/Unitframes/BuffsDebuffs.lua"/>
     <Include file="Modules/Castbar.lua"/>
     <Include file="Modules/Tooltip.lua"/>

@@ -1,5 +1,5 @@
 local P, H, O, U, I = ...
-local Module = PhoUI:NewModule("Petframe")
+local Module = PhoUI:NewModule("Unitframes.Petframe")
 
 function Module:OnEnable()
     local db = PhoUI.db.profile.unitframes

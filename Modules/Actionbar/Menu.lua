@@ -5,6 +5,8 @@ function Module:OnEnable()
     local MainMenuBarBackpackButton = MainMenuBarBackpackButton
     local MainMenuBarBackpackButtonCount = MainMenuBarBackpackButtonCount
     local BagBarExpandToggle = BagBarExpandToggle
+    local BagsBar = BagsBar
+    local MicroMenu = MicroMenu
     local PhoUIActionbar = _G[P .. "Actionbar"]
     local DB = PhoUI.db.profile.actionbar
     local ActionbarStyle = DB.style
@@ -106,10 +108,10 @@ function Module:OnEnable()
     end
 
     local function ApplyNewStyle()
-        local Bags = CreateFrame("Frame", P .. "Bags", MicroButtonAndBagsBar)
-        local Menu = CreateFrame("Frame", P .. "Bags", MicroButtonAndBagsBar)
+        local Bags = CreateFrame("Frame", P .. "Bags", BagsBar)
+        local Menu = CreateFrame("Frame", P .. "Menu", MicroMenu)
 
-        Bags:SetPoint("TOPRIGHT", MicroButtonAndBagsBar, "TOPRIGHT", 3, -6)
+        Bags:SetPoint("TOPRIGHT", BagsBar, "TOPRIGHT", 3, -6)
         Bags:SetSize(202, 50)
         Bags:SetFrameLevel(0)
 
@@ -119,12 +121,12 @@ function Module:OnEnable()
         Bags.Background:SetPoint("BOTTOMRIGHT", -7, 6.5)
 
         MainMenuBarBackpackButton:ClearAllPoints()
-        MainMenuBarBackpackButton:SetPoint("TOPRIGHT", MicroButtonAndBagsBar, "TOPRIGHT", -7, -11)
+        MainMenuBarBackpackButton:SetPoint("TOPRIGHT", BagsBar, "TOPRIGHT", -7, -11)
 
         MainMenuBarBackpackButtonCount:ClearAllPoints()
         MainMenuBarBackpackButtonCount:SetPoint("CENTER", 0, -5)
 
-        Menu:SetPoint("BOTTOMRIGHT", MicroButtonAndBagsBar, "BOTTOMRIGHT", 3, -2)
+        Menu:SetPoint("BOTTOMRIGHT", MicroMenu, "BOTTOMRIGHT", 3, -2)
         Menu:SetSize(235, 40)
         Menu:SetFrameLevel(2)
 
@@ -274,11 +276,22 @@ function Module:OnEnable()
         ApplyClassicStyle()
     else
         if DB.menu_style == "custom" then
+            BagsBar:SetClampedToScreen(false)
+            MicroMenu:SetClampedToScreen(false)
             ApplyNewStyle()
         elseif DB.menu_style == "hide" then
             MicroButtonAndBagsBar:SetAlpha(0)
             MicroButtonAndBagsBar:Hide()
         end
+    end
+
+    local function LayoutBagsBar()
+
+    end
+
+    if BagsBar and BagsBar.Layout then
+        PhoUI:SecureHook(BagsBar, "Layout", LayoutBagsBar)
+        EventRegistry:UnregisterCallback("MainMenuBarManager.OnExpandChanged", BagsBar);
     end
 
     local function UpdateBag(BagButton)

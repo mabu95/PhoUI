@@ -55,13 +55,17 @@ function Module:OnEnable()
 
     local function UpdateFrame(Frame)
         if not Frame:IsShown() then return end
+
+        if db.texture ~= "default" then
+            local Texture = PhoUI:GetTexture(db.texture)
+            Frame.healthbar:SetStatusBarTexture(Texture)
+        end
+
         if db.frame_style == "blizzard" then return end
 
         Frame.healthbar.HealthBarMask:Hide()
         Frame.manabar.ManaBarMask:Hide()
         Frame.healthbar.OverAbsorbGlow:Hide()
-
-        --Frame.healthbar:SetStatusBarTexture(PhoUI.TEXTURE_PATH .. "Statusbar_Default_White")
 
         if db.frame_style == "big" then
             Frame.healthbar:SetSize(134, 33)
@@ -74,7 +78,7 @@ function Module:OnEnable()
 
             Frame.manabar:SetSize(134, 12)
             Frame.manabar:ClearAllPoints()
-            Frame.manabar:SetPoint("TOPRIGHT", -75, -60)
+            Frame.manabar:SetPoint("TOPRIGHT", -75, -59)
             Frame.manabar.LeftText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")
             Frame.manabar.LeftText:SetPoint("LEFT", Frame.manabar, 5, 0)
             Frame.manabar.RightText:SetFont(STANDARD_TEXT_FONT, 10, "OUTLINE")

@@ -49,6 +49,7 @@ function Module:OnEnable()
         Frame:SetSize(Width, 12)
         Frame:EnableMouse(true)
         Frame:SetFrameLevel(100)
+        Frame:SetScale(DB.size)
 
         Frame.Bg = Frame:CreateTexture()
         Frame.Bg:SetPoint("TOPLEFT", 2, -2)

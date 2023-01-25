@@ -64,6 +64,27 @@ function Module:OnEnable()
         hooksecurefunc("HealthBar_OnValueChanged", SetUnColoredStatusBars)
     end
 
+    if DB.texture ~= "default" then
+        hooksecurefunc("UnitFrameManaBar_UpdateType", function(self)
+            if self and self.unitFrame then
+                local u = self.unitFrame
+                local Texture = PhoUI:GetTexture(DB.texture)
+
+                if u.manabar then
+                    u.manabar.texture:SetTexture(Texture)
+                    local PowerColor = GetPowerBarColor(u.manabar.powerType)
+                    if PowerColor then
+                        if u.manabar.powerType == 0 then
+                            u.manabar:SetStatusBarColor(0, 0.5, 1)
+                        else
+                            u.manabar:SetStatusBarColor(PowerColor.r, PowerColor.g, PowerColor.b)
+                        end
+                    end
+                end
+            end
+        end)
+    end
+
     -- Fix Bigdebuffs
     if IsAddOnLoaded("BigDebuffs") then
         hooksecurefunc(BigDebuffs, "UNIT_AURA", function(self, unit)
