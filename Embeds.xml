@@ -17,7 +17,7 @@
     <Include file="Libs\LibEditMode\embed.xml"/>
     <Include file="Libs\LibEditModeOverride\LibEditModeOverride.xml"/>
     <Include file="Libs\TaintLess.xml"/>
-    <Include file="Libs\LibPho\LibPho.xml"/>
+    <Include file="Libs\StdUi\StdUi.xml"/>
 
     <Include file="Core/PhoUI.lua"/>
     <Include file="Core/AtlasList.lua"/>

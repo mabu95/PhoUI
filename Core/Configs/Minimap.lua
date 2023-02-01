@@ -48,6 +48,13 @@ function Module:OnEnable()
                     ["inside"] = "Inside"
                 },
                 order = 5
+            },
+            hide_default_icons = {
+                name = "Hide Default Icons (Tracking, Calendar)",
+                desc = "Hide the Blizzard Default Minimap Icons",
+                type = "toggle",
+                order = 6,
+                width = "full"
             }
         }
     }

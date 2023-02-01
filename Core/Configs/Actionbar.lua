@@ -56,11 +56,43 @@ function Module:OnEnable()
                     ["Hide"] = "Hide"
                 },
             },
+
+            hotkey = {
+                name = "Show Hotkeys",
+                desc = "Show Hotkeys on Actionbars",
+                type = "toggle",
+                order = 7,
+                width = 1.3
+            },
+            macro = {
+                name = "Show Macro Texts",
+                desc = "Show Macro Texts on Actionbars",
+                type = "toggle",
+                order = 8,
+                width = 1.3
+            },
+            text_size = {
+                name = "Hotkey & Macro Text Size",
+                desc = "Set the Size for Hotkeys and Macros",
+                type = "range",
+                order = 9,
+                min = 2,
+                max = 30,
+                step = 1,
+                width = 1.3
+            },
+            short_hotkey = {
+                name = "Short Hotkeys",
+                desc = "Set the Hotkeys Text shorter",
+                type = "toggle",
+                order = 9,
+                width = 1.3
+            },
             actionbar_size = {
                 name = "Actionbar Size",
                 desc = "Set the Size for Actionbar",
                 type = "range",
-                order = 7,
+                order = 11,
                 min = 1,
                 max = 2,
                 step = 0.25,
@@ -78,13 +110,13 @@ function Module:OnEnable()
             menu_header = {
                 name = "Menu",
                 type = "header",
-                order = 8
+                order = 12
             },
             menu_style = {
                 name = "Menu Style",
                 desc = "Select the Type of Menu",
                 type = "select",
-                order = 9,
+                order = 13,
                 values = {
                     ["custom"] = "Custom",
                     ["blizzard"] = "Blizzard",

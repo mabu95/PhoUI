@@ -89,7 +89,8 @@ function PhoUI:OnInitialize()
                 shape = "round",
                 show_header = true,
                 header_style = "default",
-                hide_icons = true
+                hide_icons = true,
+                hide_default_icons = true
             },
             editmode = {
                 durability = {

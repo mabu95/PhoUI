@@ -60,6 +60,8 @@ function Module:OnEnable()
     end
 
     local function Minimap_Default_Header()
+        MinimapCluster.BorderTop:ClearAllPoints()
+        MinimapCluster.BorderTop:SetPoint("TOPRIGHT", MinimapCluster, "TOPRIGHT", 0, -1)
         MinimapCluster.BorderTop:Hide()
         MinimapCluster.ZoneTextButton:SetWidth(190)
         MinimapCluster.ZoneTextButton:ClearAllPoints()
@@ -87,8 +89,15 @@ function Module:OnEnable()
     self.EventFrame = CreateFrame("Frame")
     self.EventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
     self.EventFrame:SetScript("OnEvent", function ()
-        GameTimeFrame:Hide()
-        MinimapCluster.Tracking:Hide()
+        if DB.hide_default_icons then
+            GameTimeFrame:Hide()
+            MinimapCluster.Tracking:Hide()
+        else
+            GameTimeFrame:ClearAllPoints()
+            GameTimeFrame:SetPoint("TOPLEFT", MinimapCluster.BorderTop, "TOPRIGHT", -20, 0)
+        end
+
+
 
         --MailFrame:SetParent(MinimapCluster)
         --MinimapCluster.IndicatorFrame:ClearAllPoints()
